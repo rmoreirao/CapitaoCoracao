@@ -13,7 +13,7 @@ servidor) e pode ser hospedado **de graça no GitHub Pages**.
 > `main`, pelo workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
 > Basta habilitar o Pages uma única vez (veja abaixo).
 
-A mesma história é apresentada em **seis versões** diferentes, para escolher a
+A mesma história é apresentada em **sete versões** diferentes, para escolher a
 que mais combina com o momento:
 
 | Versão | Pasta | O que é |
@@ -26,11 +26,11 @@ que mais combina com o momento:
 | 🌅 **Mar de Memórias** | [`versao6/`](versao6/index.html) | Uma narrativa vertical com navio, ondas, farol, estrelas e céu em movimento. |
 | 🎥 **Jornada Cinematográfica** | [`versao7/`](versao7/index.html) | Um filme automático: a história avança sozinha do amanhecer ao porto, com céu animado, navio em movimento e texto que aparece como legendas cinematográficas. |
 
-A página inicial [`index.html`](index.html) reúne as seis versões.
+A página inicial [`index.html`](index.html) reúne as sete versões.
 
 ## 📸 Fotos da família
 
-As seis versões terminam com uma galeria de fotos da família. Os espaços já
+As sete versões terminam com uma galeria de fotos da família. Os espaços já
 estão prontos como **placeholders** (mostram "📷 Foto aqui"). Basta adicionar as
 imagens reais na pasta [`fotos/`](fotos/) — veja as instruções em
 [`fotos/README.md`](fotos/README.md).

@@ -211,8 +211,8 @@ body {
   border-radius: 46%;
 }
 .onda-1 { height: 60%; top: 0;   background: rgba(12,136,195,.82);  animation: onda 9s  linear infinite;          z-index: 1; }
-.onda-2 { height: 52%; top: 8%;  background: rgba(7,100,155,.72);    animation: onda 6.5s linear infinite reverse;  z-index: 2; }
-.onda-3 { height: 44%; top: 16%; background: #054475;                animation: onda 5s  linear infinite;          z-index: 3; }
+.onda-2 { height: 52%; top: 8%;  background: rgba(7,100,155,.72); animation: onda 6.5s linear infinite reverse; z-index: 2; }
+.onda-3 { height: 44%; top: 16%; background: #054475;             animation: onda 5s  linear infinite;          z-index: 3; }
 
 /* Navio */
 .navio {

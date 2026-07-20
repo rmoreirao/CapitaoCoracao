@@ -136,12 +136,15 @@
     Estado._timerId = null;
   }
 
+  /* Duração do delay para anúncios de leitores de tela (ms) */
+  var ANNOUNCE_DELAY_MS = 60;
+
   /* ─────────────────────────────────────────────────────────
    *  ACESSIBILIDADE — anuncia mudanças para leitores de tela
    * ───────────────────────────────────────────────────────── */
   function anunciar(msg) {
     Dom.srLive.textContent = '';
-    setTimeout(function () { Dom.srLive.textContent = msg; }, 60);
+    setTimeout(function () { Dom.srLive.textContent = msg; }, ANNOUNCE_DELAY_MS);
   }
 
   /* ─────────────────────────────────────────────────────────
