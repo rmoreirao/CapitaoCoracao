@@ -22,10 +22,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git archive "$GITHUB_SHA" -o "$RUNNER_TEMP/site.tar"
           git switch --orphan gh-pages
-          git archive "$GITHUB_SHA" | tar -x
+          tar -xf "$RUNNER_TEMP/site.tar"
           # Workflow files are not part of the published site.
           rm -rf .github
           git add --all
-          git commit -m "Publish ${GITHUB_SHA}"
+          git commit --allow-empty -m "Publish ${GITHUB_SHA}"
           git push --force origin gh-pages
