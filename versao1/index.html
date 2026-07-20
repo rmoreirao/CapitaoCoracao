@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O Capitão Coração — Navegando 🌊</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/common.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="voltar-inicio" href="../index.html">⬅ Início</a>
+
+  <div class="oceano">
+    <div class="ceu"></div>
+    <div class="sol">☀️</div>
+    <div class="nuvem n1">☁️</div>
+    <div class="nuvem n2">☁️</div>
+    <div class="navio">⛵</div>
+    <div class="onda onda-tras"></div>
+    <div class="onda onda-frente"></div>
+  </div>
+
+  <main class="palco">
+    <!-- Tela de abertura -->
+    <section id="abertura" class="cena ativa">
+      <h1>O Capitão Coração</h1>
+      <p class="sub">Toque para zarpar nesta aventura 🌊</p>
+      <button class="botao" id="btn-comecar">Começar a navegar ⛵</button>
+    </section>
+
+    <!-- Capítulos (injetados via JS) -->
+    <section id="capitulo" class="cena">
+      <div class="barra-progresso"><div id="progresso"></div></div>
+      <div class="chip"><span id="cap-emoji">⚓</span> <span id="cap-titulo"></span></div>
+      <div id="cap-texto" class="texto-cena"></div>
+      <div class="controles">
+        <button class="botao secundario" id="btn-voltar">⬅ Voltar</button>
+        <button class="botao" id="btn-continuar">Continuar navegando ➡</button>
+      </div>
+    </section>
+
+    <!-- Final com fotos -->
+    <section id="final" class="cena">
+      <div class="porto">🏡⚓🎉</div>
+      <h2>O porto cheio de amor</h2>
+      <p class="assinatura" id="assinatura"></p>
+      <p class="sub">📸 As fotos da nossa família:</p>
+      <div id="galeria"></div>
+      <div class="controles">
+        <button class="botao secundario" id="btn-reiniciar">↺ Navegar de novo</button>
+        <a class="botao" href="../index.html">🏠 Voltar ao início</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="../assets/js/story.js"></script>
+  <script src="../assets/js/familia.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
