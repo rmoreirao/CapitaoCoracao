@@ -1,0 +1,48 @@
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 0%, #ffe9c2 0%, #ffd08a 45%, #ff9e6d 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+
+.cena-livro { width: 100%; padding: 4.5rem 1rem 2rem; text-align: center; }
+
+.livro {
+  width: min(560px, 92vw);
+  margin: 0 auto;
+  perspective: 1600px;
+}
+.pagina {
+  background: #fffdf7;
+  border-radius: 10px 22px 22px 10px;
+  border-left: 12px solid #e7b06a;
+  box-shadow: var(--sombra), inset 0 0 60px rgba(231,176,106,.15);
+  min-height: 60vh;
+  padding: 2rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform-origin: left center;
+  animation: vira .55s ease;
+}
+@keyframes vira {
+  from { transform: rotateY(-28deg); opacity: .3; }
+  to { transform: rotateY(0); opacity: 1; }
+}
+
+.ilustra { font-size: clamp(4rem, 16vw, 7rem); line-height: 1; margin-bottom: .6rem; filter: drop-shadow(0 6px 6px rgba(0,0,0,.15)); }
+.pagina h2 { color: var(--coral); margin: .2rem 0 1rem; font-size: clamp(1.4rem, 5vw, 2rem); }
+.pagina .linhas { font-size: 1.2rem; line-height: 1.7; max-width: 440px; }
+.pagina .linhas p { margin: 0 0 .7rem; }
+
+.capa .ilustra { font-size: clamp(5rem, 22vw, 9rem); }
+.capa h1 { color: var(--azul-mar); font-size: clamp(2rem, 8vw, 3.2rem); margin: .3rem 0; }
+.capa .sub { font-weight: 700; opacity: .8; }
+
+.assinatura-livro { font-style: italic; font-weight: 700; color: var(--azul-mar); }
+
+.navegacao { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 1.4rem auto 0; flex-wrap: wrap; }
+.contador { font-family: var(--fonte-titulo); background: #fff; padding: .4rem 1rem; border-radius: 999px; box-shadow: var(--sombra); color: var(--azul-mar); }
+.dica { margin-top: .8rem; font-weight: 700; color: #8a4b1e; opacity: .8; }
+
+button:disabled { opacity: .45; cursor: not-allowed; }

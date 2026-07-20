@@ -1,0 +1,72 @@
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: linear-gradient(180deg, #bde9fb 0%, #8ad6f4 60%, #2f8fc4 100%);
+}
+
+/* ===== Cenário do oceano (fundo) ===== */
+.oceano { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.sol { position: absolute; top: 6%; right: 8%; font-size: 4rem; animation: brilha 6s ease-in-out infinite; }
+@keyframes brilha { 0%,100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+.nuvem { position: absolute; font-size: 3rem; opacity: .9; }
+.nuvem.n1 { top: 12%; left: -10%; animation: passa 26s linear infinite; }
+.nuvem.n2 { top: 22%; left: -20%; font-size: 2.2rem; animation: passa 34s linear infinite; }
+@keyframes passa { from { transform: translateX(0); } to { transform: translateX(130vw); } }
+
+.navio {
+  position: absolute; bottom: 26%; left: 50%; font-size: 4.5rem;
+  transform: translateX(-50%);
+  animation: barco 3.2s ease-in-out infinite;
+}
+@keyframes barco {
+  0%,100% { transform: translateX(-50%) translateY(0) rotate(-4deg); }
+  50% { transform: translateX(-50%) translateY(-14px) rotate(4deg); }
+}
+
+.onda { position: absolute; left: 0; width: 200%; height: 40%; bottom: 0;
+  background-repeat: repeat-x; background-size: 50% 100%; }
+.onda-tras {
+  background-image: radial-gradient(circle at 50% 100%, #3a99cf 40%, transparent 41%);
+  opacity: .6; animation: rola 9s linear infinite;
+}
+.onda-frente {
+  background-image: radial-gradient(circle at 50% 100%, #1c6fa5 45%, transparent 46%);
+  height: 30%; animation: rola 6s linear infinite reverse;
+}
+@keyframes rola { from { background-position-x: 0; } to { background-position-x: -50%; } }
+
+/* ===== Palco / cenas ===== */
+.palco { position: relative; z-index: 2; min-height: 100vh; display: flex;
+  align-items: center; justify-content: center; padding: 5rem 1rem 2rem; }
+.cena {
+  display: none;
+  width: min(680px, 94vw);
+  background: rgba(255,255,255,.94);
+  border-radius: 26px;
+  box-shadow: var(--sombra);
+  padding: 1.8rem;
+  text-align: center;
+  animation: entra .5s ease;
+}
+.cena.ativa { display: block; }
+@keyframes entra { from { opacity: 0; transform: translateY(24px) scale(.98); } to { opacity: 1; transform: none; } }
+
+#abertura h1 { font-size: clamp(2rem, 6vw, 3.4rem); color: var(--azul-mar); margin: .2rem 0; }
+.sub { font-weight: 700; opacity: .85; }
+
+.barra-progresso { height: 12px; background: #e4f2fa; border-radius: 999px; overflow: hidden; margin-bottom: 1rem; }
+#progresso { height: 100%; width: 0; background: linear-gradient(90deg, var(--amarelo), var(--coral)); transition: width .4s ease; }
+
+.chip {
+  display: inline-block; background: var(--azul-mar); color: #fff;
+  font-family: var(--fonte-titulo); padding: .4rem 1.1rem; border-radius: 999px; margin-bottom: 1rem;
+}
+.texto-cena { font-size: 1.25rem; line-height: 1.7; text-align: left; margin: 0 auto 1.4rem; max-width: 560px; }
+.texto-cena p { margin: 0 0 .8rem; opacity: 0; animation: surge .5s ease forwards; }
+@keyframes surge { to { opacity: 1; } }
+
+.controles { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+.porto { font-size: 3.4rem; }
+#final h2 { color: var(--azul-mar); }
+.assinatura { font-style: italic; font-weight: 700; color: var(--azul-mar); }
