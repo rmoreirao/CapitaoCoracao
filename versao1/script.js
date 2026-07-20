@@ -23,9 +23,13 @@
     var cap = caps[indice];
     capEmoji.textContent = cap.emoji;
     capTitulo.textContent = cap.titulo;
-    capTexto.innerHTML = cap.texto.map(function (p, i) {
-      return '<p style="animation-delay:' + (i * 0.18) + 's">' + p + "</p>";
-    }).join("");
+    capTexto.textContent = "";
+    cap.texto.forEach(function (linha, i) {
+      var p = document.createElement("p");
+      p.textContent = linha;
+      p.style.animationDelay = (i * 0.18) + "s";
+      capTexto.appendChild(p);
+    });
     progresso.style.width = ((indice + 1) / caps.length * 100) + "%";
     btnVoltar.disabled = indice === 0;
     btnVoltar.style.visibility = indice === 0 ? "hidden" : "visible";

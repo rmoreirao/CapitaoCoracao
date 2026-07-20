@@ -15,19 +15,27 @@
     "Os dois netos": "🧒👦"
   };
 
-  palco.innerHTML = story.capitulos.map(function (cap) {
+  function el(tag, className, texto) {
+    var e = document.createElement(tag);
+    if (className) e.className = className;
+    if (texto != null) e.textContent = texto;
+    return e;
+  }
+
+  story.capitulos.forEach(function (cap) {
     var avatar = avatares[cap.narrador] || "🙂";
-    return (
-      '<article class="fala">' +
-        '<div class="avatar">' + avatar + '</div>' +
-        '<div class="balao">' +
-          '<span class="quem">' + cap.narrador + '</span>' +
-          '<div class="tema">' + cap.emoji + ' ' + cap.titulo + '</div>' +
-          cap.texto.map(function (t) { return "<p>" + t + "</p>"; }).join("") +
-        '</div>' +
-      '</article>'
-    );
-  }).join("");
+
+    var article = el("article", "fala");
+    article.appendChild(el("div", "avatar", avatar));
+
+    var balao = el("div", "balao");
+    balao.appendChild(el("span", "quem", cap.narrador));
+    balao.appendChild(el("div", "tema", cap.emoji + " " + cap.titulo));
+    cap.texto.forEach(function (t) { balao.appendChild(el("p", null, t)); });
+
+    article.appendChild(balao);
+    palco.appendChild(article);
+  });
 
   // revela cada fala conforme aparece na tela
   var falas = Array.prototype.slice.call(document.querySelectorAll(".fala"));
