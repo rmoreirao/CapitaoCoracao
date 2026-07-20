@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O Capitão Coração — Travessia Cinematográfica 🎬</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/common.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="voltar-inicio" href="../index.html">⬅ Início</a>
+
+  <div class="mar-cinematografico" aria-hidden="true">
+    <div class="sol"></div>
+    <div class="nuvem nuvem-1">☁️</div>
+    <div class="nuvem nuvem-2">☁️</div>
+    <div class="ilha">🌴</div>
+    <div class="navio" id="navio">🚢<span class="fumaca">☁</span></div>
+    <div class="ondas ondas-fundo"></div>
+    <div class="ondas ondas-frente"></div>
+  </div>
+
+  <main class="tela">
+    <section class="cartao-cena" id="cena" aria-live="polite">
+      <span class="capitulo" id="numero">Prólogo</span>
+      <div class="emoji" id="emoji">🎬</div>
+      <h1 id="titulo">Uma travessia cinematográfica</h1>
+      <div class="texto" id="texto">
+        <p>Veja o Capitão cruzar o mar enquanto cada capítulo ganha vida.</p>
+      </div>
+      <div class="progresso"><span id="progresso"></span></div>
+      <div class="controles">
+        <button class="botao secundario" id="anterior" disabled>⬅ Voltar</button>
+        <button class="botao" id="proximo">Zarpar 🚢</button>
+      </div>
+    </section>
+
+    <section class="final" id="final" hidden>
+      <div class="porto">🏡 🎉 ⚓</div>
+      <h2>Chegamos ao porto do amor!</h2>
+      <p id="assinatura"></p>
+      <div id="galeria"></div>
+      <a class="botao" href="../index.html">🏠 Voltar ao início</a>
+    </section>
+  </main>
+
+  <script src="../assets/js/story.js"></script>
+  <script src="../assets/js/familia.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
