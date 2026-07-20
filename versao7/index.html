@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O Capitão Coração — Jornada Cinematográfica 🎬</title>
+  <meta name="description" content="Uma jornada cinematográfica automática pela história do Capitão Coração.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/common.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== FILME — Versão 7: Jornada Cinematográfica ===== -->
+  <div id="filme">
+
+    <!-- ── Camadas de fundo (aria-hidden) ── -->
+    <div class="camada-ceu" id="ceu" aria-hidden="true">
+      <div class="astro" id="astro">☀️</div>
+      <div class="estrelas" id="estrelas">✦ · ✧ · ✦ · ✧ · ✦ · ✧ · ✦</div>
+      <div class="nuvens">
+        <span class="nuvem nv1">☁️</span>
+        <span class="nuvem nv2">☁️</span>
+        <span class="nuvem nv3">⛅</span>
+      </div>
+      <div class="neblina" id="neblina"></div>
+    </div>
+
+    <div class="camada-paisagem" aria-hidden="true">
+      <div class="gaivota gv1">﹀</div>
+      <div class="gaivota gv2">﹀</div>
+      <div class="ilha" id="ilha">🌴🌴</div>
+      <div class="farol" id="farol">
+        <div class="feixe-farol"></div>
+        <span class="farol-torre">🗼</span>
+      </div>
+      <div class="luzes-porto" id="luzes-porto"></div>
+    </div>
+
+    <div class="camada-oceano" aria-hidden="true">
+      <div class="navio" id="navio">
+        <span class="fumaca-navio">☁</span>🚢<span class="esteira-navio"></span>
+      </div>
+      <div class="onda onda-1"></div>
+      <div class="onda onda-2"></div>
+      <div class="onda onda-3"></div>
+    </div>
+
+    <!-- Barra superior cinematográfica -->
+    <div class="barra-cinema" aria-hidden="true"></div>
+
+    <!-- Overlay para transições (fade entre cenas) -->
+    <div class="fade-cena" id="fade-cena" aria-hidden="true"></div>
+
+    <!-- ── TELA 1: Abertura ── -->
+    <div class="tela" id="tela-abertura">
+      <div class="abertura">
+        <div class="abertura-emoji" aria-hidden="true">⚓</div>
+        <h1 class="abertura-titulo">O Capitão Coração</h1>
+        <p class="abertura-subtitulo">Uma jornada cinematográfica</p>
+        <button class="botao-filme" id="btn-iniciar" autofocus>
+          <span aria-hidden="true">▶</span> Começar o filme
+        </button>
+        <a class="abertura-voltar" href="../index.html">⬅ Início</a>
+      </div>
+    </div>
+
+    <!-- ── TELA 2: Cena de capítulo ── -->
+    <div class="tela" id="tela-cena" hidden>
+      <!-- Área narrativa: texto e título da cena -->
+      <div class="zona-narrativa" aria-live="off">
+        <div class="cena-header">
+          <span class="cena-numero" id="cena-numero"></span>
+          <span class="cena-narrador" id="cena-narrador"></span>
+        </div>
+        <div class="cena-emoji-titulo">
+          <span class="cena-emoji" id="cena-emoji" aria-hidden="true"></span>
+          <h2 class="cena-titulo" id="cena-titulo"></h2>
+        </div>
+        <div class="cena-texto" id="cena-texto" aria-live="polite" aria-atomic="false"></div>
+      </div>
+    </div>
+
+    <!-- ── TELA 3: Final / Créditos ── -->
+    <div class="tela tela-scroll" id="tela-final" hidden>
+      <div class="final">
+        <div class="final-emblema" aria-hidden="true">🏡 ⚓ 💙</div>
+        <h2 class="final-titulo">Chegamos ao porto do amor</h2>
+        <p class="final-assinatura" id="final-assinatura"></p>
+        <div id="galeria-final"></div>
+        <div class="final-botoes">
+          <button class="botao-filme" id="btn-replay">🔁 Ver novamente</button>
+          <a class="botao-filme secundario" href="../index.html">🏠 Início</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Controles do player ── -->
+    <div class="player" id="player" role="toolbar" aria-label="Controles do filme">
+      <button class="player-btn" id="btn-anterior" aria-label="Capítulo anterior" title="Capítulo anterior (←)">&#8249;</button>
+      <button class="player-btn player-play" id="btn-play" aria-label="Pausar" title="Pausar/retomar (Espaço)">⏸</button>
+      <button class="player-btn" id="btn-proximo" aria-label="Próximo capítulo" title="Próximo capítulo (→)">&#8250;</button>
+      <div class="player-progresso-wrap"
+           role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+           id="progresso-wrap"
+           aria-label="Progresso da história">
+        <div class="player-progresso-trilha">
+          <div class="player-progresso-barra" id="progresso-barra"></div>
+        </div>
+      </div>
+      <span class="player-cap-num" id="player-num" aria-label="capítulo atual">1 / 9</span>
+      <button class="player-btn" id="btn-fullscreen" aria-label="Tela cheia" title="Tela cheia (F)">⛶</button>
+      <a class="player-btn player-home" href="../index.html" aria-label="Voltar ao início" title="Início">⌂</a>
+    </div>
+
+    <!-- Região live para anúncios de leitores de tela -->
+    <div class="sr-only" aria-live="polite" aria-atomic="true" id="sr-live"></div>
+
+  </div><!-- #filme -->
+
+  <script src="../assets/js/story.js"></script>
+  <script src="../assets/js/familia.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

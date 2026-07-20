@@ -13,7 +13,7 @@ servidor) e pode ser hospedado **de graça no GitHub Pages**.
 > `main`, pelo workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
 > Basta habilitar o Pages uma única vez (veja abaixo).
 
-A mesma história é apresentada em **seis versões** diferentes, para escolher a
+A mesma história é apresentada em **sete versões** diferentes, para escolher a
 que mais combina com o momento:
 
 | Versão | Pasta | O que é |
@@ -24,12 +24,13 @@ que mais combina com o momento:
 | 🎬 **Travessia Cinematográfica** | [`versao4/`](versao4/index.html) | O navio cruza ondas animadas e avança pelo cenário a cada novo capítulo. |
 | 🗺️ **Mapa da Grande Viagem** | [`versao5/`](versao5/index.html) | Uma rota interativa por nove portos, com o barco navegando entre as memórias. |
 | 🌅 **Mar de Memórias** | [`versao6/`](versao6/index.html) | Uma narrativa vertical com navio, ondas, farol, estrelas e céu em movimento. |
+| 🎥 **Jornada Cinematográfica** | [`versao7/`](versao7/index.html) | Um filme automático: a história avança sozinha do amanhecer ao porto, com céu animado, navio em movimento e texto que aparece como legendas cinematográficas. |
 
-A página inicial [`index.html`](index.html) reúne as seis versões.
+A página inicial [`index.html`](index.html) reúne as sete versões.
 
 ## 📸 Fotos da família
 
-As seis versões terminam com uma galeria de fotos da família. Os espaços já
+As sete versões terminam com uma galeria de fotos da família. Os espaços já
 estão prontos como **placeholders** (mostram "📷 Foto aqui"). Basta adicionar as
 imagens reais na pasta [`fotos/`](fotos/) — veja as instruções em
 [`fotos/README.md`](fotos/README.md).
@@ -62,10 +63,10 @@ python3 -m http.server 8000
 ## 🗂️ Estrutura
 
 ```
-index.html            # página inicial com as seis versões
+index.html            # página inicial com as sete versões
 assets/
   css/common.css      # estilos compartilhados (tema, galeria de fotos)
-  js/story.js         # texto da história (compartilhado pelas 6 versões)
+  js/story.js         # texto da história (compartilhado pelas 7 versões)
   js/familia.js       # renderiza a galeria de fotos (placeholders)
 versao1/              # site interativo "Navegando"
 versao2/              # livro ilustrado
@@ -73,10 +74,42 @@ versao3/              # a família conta a história
 versao4/              # travessia cinematográfica
 versao5/              # mapa interativo da viagem
 versao6/              # mar de memórias em rolagem
+versao7/              # jornada cinematográfica (filme automático)
 fotos/                # coloque aqui as fotos reais da família
 ```
 
 > O texto da história fica em um único lugar (`assets/js/story.js`), então
-> qualquer ajuste no conteúdo aparece automaticamente nas seis versões.
+> qualquer ajuste no conteúdo aparece automaticamente nas sete versões.
+
+## 🎥 Versão 7 — Jornada Cinematográfica
+
+A Versão 7 é um **filme automático** que reproduz a história sozinha, do
+amanhecer ao porto, sem que o visitante precise rolar ou clicar.
+
+### Controles
+
+| Ação | Teclado | Botão |
+|------|---------|-------|
+| Iniciar o filme | `Enter` / `Espaço` (na abertura) | **▶ Começar o filme** |
+| Pausar / retomar | `Espaço` | ⏸ / ▶ na barra inferior |
+| Capítulo anterior | `←` | `‹` na barra |
+| Próximo capítulo | `→` | `›` na barra |
+| Tela cheia | `F` | ⛶ na barra |
+| Voltar ao início | — | ⌂ na barra / `⬅ Início` na abertura |
+| Clicar na cena | — | pausa ou retoma |
+
+### Como funciona
+
+- Pressione **"Começar o filme"** uma vez (necessário para contornar restrições
+  do navegador).
+- A história avança automaticamente, parágrafo a parágrafo, com tempo
+  proporcional ao tamanho do texto (~320 ms por palavra).
+- O céu muda do amanhecer → manhã → meio-dia → neblina → tarde →
+  pôr-do-sol → crepúsculo → noite → chegada ao porto.
+- O navio desloca-se da esquerda para a direita conforme a história progride.
+- Ao final, aparece a galeria de fotos da família e botões para rever ou
+  voltar ao início.
+- Respeita `prefers-reduced-motion`: as animações contínuas são desativadas,
+  mas a progressão automática é mantida.
 
 Feito com muito carinho. 🌊⚓

@@ -1,0 +1,702 @@
+/* ===== Versão 7 — Jornada Cinematográfica ===== */
+
+/* ── Base ── */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #010508;
+}
+
+#filme {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  font-family: var(--fonte-texto);
+}
+
+/* ── Telas (camadas de conteúdo) ── */
+.tela {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Tela que pode rolar (créditos finais) */
+.tela-scroll {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  align-items: flex-start;
+}
+
+/* ─────────────────────────────────────────────
+   CAMADA DE CÉU
+───────────────────────────────────────────── */
+.camada-ceu {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transition: background 3s ease;
+}
+
+/* Ambientes — cada capítulo aplica uma dessas classes */
+.camada-ceu.c-abertura  { background: radial-gradient(ellipse at 35% 35%, #0e2a50 0%, #020c1b 100%); }
+.camada-ceu.c-amanhecer { background: linear-gradient(180deg, #1a0a2e 0%, #8b3a62 28%, #ff9d72 55%, #ffd28f 72%, #63c8e5 100%); }
+.camada-ceu.c-manha     { background: linear-gradient(180deg, #3cbaf7 0%, #79d4ff 42%, #b8ecff 72%, #ffe9c5 100%); }
+.camada-ceu.c-meiodia   { background: linear-gradient(180deg, #1565c0 0%, #42a5f5 45%, #81d4fa 100%); }
+.camada-ceu.c-neblina   { background: linear-gradient(180deg, #607d8b 0%, #78909c 35%, #90a4ae 65%, #b0bec5 100%); }
+.camada-ceu.c-tarde     { background: linear-gradient(180deg, #1a237e 0%, #1976d2 38%, #81d4fa 68%, #ffe082 88%, #ff8f00 100%); }
+.camada-ceu.c-pordosol  { background: linear-gradient(180deg, #4a148c 0%, #b71c1c 20%, #e65100 42%, #ff6d00 58%, #ffd740 78%, #0d47a1 100%); }
+.camada-ceu.c-crepusculo{ background: linear-gradient(180deg, #0d0221 0%, #1a0a2e 22%, #4a0072 52%, #1565c0 100%); }
+.camada-ceu.c-noite     { background: linear-gradient(180deg, #010508 0%, #020d1a 32%, #021933 62%, #07305e 100%); }
+.camada-ceu.c-chegada   { background: linear-gradient(180deg, #071b41 0%, #1a237e 25%, #1565c0 50%, #e65100 75%, #ffcc02 100%); }
+
+/* Sol / Lua */
+.astro {
+  position: absolute;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  top: 10%;
+  right: 10%;
+  filter: drop-shadow(0 0 30px rgba(255,240,100,.7));
+  animation: pulsa-astro 4s ease-in-out infinite;
+  transition: opacity 2s ease, top 3s ease, right 3s ease;
+}
+.astro.lua { filter: drop-shadow(0 0 25px rgba(200,230,255,.6)); }
+
+/* Estrelas */
+.estrelas {
+  position: absolute;
+  top: 4%;
+  left: 8%;
+  right: 8%;
+  color: rgba(255,255,255,.85);
+  font-size: clamp(1rem, 1.8vw, 1.8rem);
+  letter-spacing: .7em;
+  opacity: 0;
+  transition: opacity 2.5s ease;
+  pointer-events: none;
+  animation: pisca-estrelas 3.5s ease-in-out infinite;
+}
+.estrelas.visivel { opacity: 1; }
+
+/* Nuvens */
+.nuvens {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.nuvem {
+  position: absolute;
+  animation: cruza-nuvem linear infinite;
+}
+.nv1 { font-size: clamp(2.8rem, 5.5vw, 5rem); top: 14%; left: -18%; animation-duration: 40s; animation-delay: 0s;    opacity: .8; }
+.nv2 { font-size: clamp(1.8rem, 3.5vw, 3.5rem); top: 24%; left: -30%; animation-duration: 55s; animation-delay:-18s; opacity: .7; }
+.nv3 { font-size: clamp(2.2rem, 4.5vw, 4rem);   top:  8%; left: -40%; animation-duration: 46s; animation-delay:-30s; opacity: .75; }
+
+/* Neblina */
+.neblina {
+  position: absolute;
+  inset: 0;
+  background: rgba(176,190,197,.52);
+  opacity: 0;
+  transition: opacity 2.5s ease;
+  pointer-events: none;
+}
+.neblina.ativa { opacity: 1; }
+
+/* ─────────────────────────────────────────────
+   CAMADA DE PAISAGEM
+───────────────────────────────────────────── */
+.camada-paisagem {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Gaivotas */
+.gaivota {
+  position: absolute;
+  color: rgba(255,255,255,.9);
+  font-size: 1.6rem;
+  top: 32%;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+  animation: voa-gaivota linear infinite;
+}
+.gaivota.visivel { opacity: 1; }
+.gv1 { left: -8%;  font-size: 2rem;   animation-duration: 20s; animation-delay: 0s; }
+.gv2 { left: -22%; font-size: 1.3rem; animation-duration: 26s; animation-delay: -9s; top: 40%; }
+
+/* Ilha */
+.ilha {
+  position: absolute;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  right: 6%;
+  bottom: 34%;
+  filter: drop-shadow(0 10px 6px rgba(0,0,0,.4));
+  opacity: 0;
+  transition: opacity 2s ease;
+  animation: flutua 4.5s ease-in-out infinite;
+}
+.ilha.visivel { opacity: 1; }
+
+/* Farol */
+.farol {
+  position: absolute;
+  right: 5%;
+  bottom: 32%;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+.farol.visivel { opacity: 1; }
+.farol-torre { font-size: clamp(2rem, 4vw, 3.8rem); display: block; }
+.feixe-farol {
+  position: absolute;
+  right: 80%;
+  bottom: 45%;
+  width: 48vw;
+  height: 9vh;
+  background: linear-gradient(to left, rgba(255,248,174,.38), transparent);
+  clip-path: polygon(0 30%, 100% 0, 100% 100%, 0 70%);
+  transform-origin: right center;
+  animation: varre-feixe 5.5s ease-in-out infinite;
+}
+
+/* Luzes do porto */
+.luzes-porto {
+  position: absolute;
+  right: 2%;
+  bottom: 30%;
+  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  letter-spacing: .4em;
+  opacity: 0;
+  transition: opacity 2s ease;
+  animation: pisca-luzes 2s ease-in-out infinite;
+}
+.luzes-porto.visivel { opacity: 1; }
+
+/* ─────────────────────────────────────────────
+   CAMADA DO OCEANO
+───────────────────────────────────────────── */
+.camada-oceano {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 38%;
+  z-index: 3;
+  overflow: hidden;
+  transition: background 3s ease;
+}
+
+.camada-oceano::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #0878ac 0%, #054c7a 100%);
+  transition: background 3s ease;
+  z-index: 0;
+}
+
+.onda {
+  position: absolute;
+  left: -50%;
+  width: 200%;
+  border-radius: 46%;
+}
+.onda-1 { height: 60%; top: 0;   background: rgba(12,136,195,.82);  animation: onda 9s  linear infinite;          z-index: 1; }
+.onda-2 { height: 52%; top: 8%;  background: rgba(7,100,155,.72); animation: onda 6.5s linear infinite reverse; z-index: 2; }
+.onda-3 { height: 44%; top: 16%; background: #054475;             animation: onda 5s  linear infinite;          z-index: 3; }
+
+/* Navio */
+.navio {
+  position: absolute;
+  z-index: 4;
+  left: 5%;
+  bottom: 56%;
+  font-size: clamp(3rem, 6.5vw, 5.5rem);
+  filter: drop-shadow(0 12px 5px rgba(0,0,0,.3));
+  transition: left 2.8s cubic-bezier(.35,0,.25,1);
+  animation: balanca-navio 3.2s ease-in-out infinite;
+  white-space: nowrap;
+}
+
+.fumaca-navio {
+  font-size: .9em;
+  position: absolute;
+  left: 50%;
+  top: -8%;
+  opacity: 0;
+  animation: sobe-fumaca 2.8s ease infinite;
+}
+
+.esteira-navio {
+  position: absolute;
+  right: 100%;
+  top: 58%;
+  width: 70px;
+  height: 3px;
+  background: linear-gradient(to left, rgba(255,255,255,.55), transparent);
+  border-radius: 2px;
+  animation: esteira 2.5s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────
+   BARRA CINEMATOGRÁFICA (topo)
+───────────────────────────────────────────── */
+.barra-cinema {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5.5vh;
+  min-height: 30px;
+  background: rgba(0,0,0,.55);
+  z-index: 12;
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────────
+   OVERLAY DE TRANSIÇÃO
+───────────────────────────────────────────── */
+.fade-cena {
+  position: absolute;
+  inset: 0;
+  z-index: 14;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .85s ease;
+}
+.fade-cena.ativo {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ─────────────────────────────────────────────
+   TELA DE ABERTURA
+───────────────────────────────────────────── */
+.abertura {
+  text-align: center;
+  color: #fff;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  text-shadow: 0 3px 24px rgba(0,0,0,.85);
+}
+
+.abertura-emoji {
+  font-size: clamp(4rem, 10vw, 7rem);
+  animation: pulsa-astro 3.2s ease-in-out infinite;
+}
+
+.abertura-titulo {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(2.4rem, 7.5vw, 5rem);
+  margin: 0;
+  letter-spacing: .04em;
+  text-shadow: 0 4px 30px rgba(0,0,0,.9), 0 0 60px rgba(100,180,255,.35);
+}
+
+.abertura-subtitulo {
+  font-size: clamp(.95rem, 2.2vw, 1.3rem);
+  margin: 0;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  opacity: .8;
+}
+
+/* Botão principal do filme */
+.botao-filme {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .9rem 2.2rem;
+  background: var(--coral);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1rem, 2.4vw, 1.3rem);
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform .15s ease, box-shadow .15s ease;
+  box-shadow: 0 6px 28px rgba(255,107,107,.5);
+}
+.botao-filme:hover     { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(255,107,107,.65); }
+.botao-filme:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.botao-filme.secundario {
+  background: rgba(255,255,255,.14);
+  box-shadow: 0 4px 16px rgba(0,0,0,.35);
+  border: 2px solid rgba(255,255,255,.45);
+}
+.botao-filme.secundario:hover { background: rgba(255,255,255,.25); }
+
+.abertura-voltar {
+  color: rgba(255,255,255,.6);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: .88rem;
+  letter-spacing: .06em;
+  transition: color .15s;
+}
+.abertura-voltar:hover { color: #fff; }
+
+/* ─────────────────────────────────────────────
+   TELA DE CENA (capítulo em reprodução)
+───────────────────────────────────────────── */
+#tela-cena {
+  /* Clique em qualquer lugar → toggle play/pause */
+  cursor: pointer;
+}
+
+/* Zona narrativa: texto direto sobre o cenário */
+.zona-narrativa {
+  position: absolute;
+  top: 7vh;        /* abaixo da barra cinematográfica */
+  left: 0;
+  right: 0;
+  bottom: 40%;     /* acima do oceano / navio */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 8% 1.8rem;
+  /* Gradiente sutil para legibilidade do texto */
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(0,5,18,.1) 40%,
+    rgba(0,5,18,.4) 70%,
+    rgba(0,5,18,.6) 100%);
+  pointer-events: none; /* cliques passam para #tela-cena */
+}
+
+.cena-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: .35rem;
+}
+
+.cena-numero {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(.7rem, 1.5vw, .85rem);
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--amarelo);
+  opacity: .9;
+}
+
+.cena-narrador {
+  font-size: clamp(.72rem, 1.5vw, .88rem);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.7);
+  font-weight: 700;
+}
+
+.cena-emoji-titulo {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  margin-bottom: .55rem;
+}
+
+.cena-emoji {
+  font-size: clamp(1.8rem, 3.8vw, 3rem);
+  animation: aparece-emoji .7s cubic-bezier(.2,1.7,.5,1);
+  flex-shrink: 0;
+}
+
+.cena-titulo {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.5rem, 3.8vw, 2.6rem);
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 2px 12px rgba(0,0,0,.85), 0 4px 24px rgba(0,0,0,.7);
+  animation: entra-titulo .8s ease;
+}
+
+/* Área de texto (paragrafos revelados sequencialmente) */
+.cena-texto {
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  max-height: 34vh;
+  display: flex;
+  flex-direction: column;
+  gap: .38rem;
+}
+.cena-texto::-webkit-scrollbar { display: none; }
+
+.cena-texto p {
+  margin: 0;
+  font-size: clamp(.95rem, 2vw, 1.15rem);
+  line-height: 1.65;
+  color: rgba(255,255,255,.97);
+  text-shadow: 0 1px 6px rgba(0,0,0,.95), 0 3px 14px rgba(0,0,0,.8);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.cena-texto p.visivel {
+  opacity: 1;
+  transform: none;
+}
+.cena-texto p.passado {
+  opacity: .45;
+}
+
+/* ─────────────────────────────────────────────
+   TELA FINAL (créditos + galeria)
+───────────────────────────────────────────── */
+.final {
+  text-align: center;
+  color: #fff;
+  padding: 5rem 6% 6rem;
+  max-width: 900px;
+  width: 100%;
+  text-shadow: 0 2px 16px rgba(0,0,0,.65);
+}
+
+.final-emblema {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  margin-bottom: 1rem;
+  animation: pulsa-astro 3s ease-in-out infinite;
+}
+
+.final-titulo {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.7rem, 4.5vw, 3rem);
+  margin: 0 0 .4rem;
+}
+
+.final-assinatura {
+  font-style: italic;
+  font-weight: 700;
+  opacity: .9;
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  margin: 0 0 2rem;
+  line-height: 1.55;
+}
+
+/* Galeria sobre fundo escuro */
+#galeria-final.galeria-familia {
+  margin: 1rem auto 1.5rem;
+}
+#galeria-final .foto-familia {
+  background: rgba(255,255,255,.1);
+  border: 2px solid rgba(255,255,255,.22);
+}
+#galeria-final .foto-familia .moldura {
+  background: repeating-linear-gradient(45deg,
+    rgba(255,255,255,.06), rgba(255,255,255,.06) 12px,
+    rgba(255,255,255,.1) 12px, rgba(255,255,255,.1) 24px);
+  color: rgba(255,255,255,.7);
+}
+#galeria-final .foto-familia .moldura::before {
+  color: rgba(255,255,255,.7);
+}
+#galeria-final .legenda {
+  color: rgba(255,255,255,.85);
+}
+
+.final-botoes {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+/* ─────────────────────────────────────────────
+   CONTROLES DO PLAYER
+───────────────────────────────────────────── */
+.player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  height: 7vh;
+  min-height: 48px;
+  background: rgba(0,6,18,.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  padding: 0 .8rem;
+  transition: opacity .45s ease, transform .45s ease;
+}
+.player.oculto {
+  opacity: 0;
+  transform: translateY(100%);
+  pointer-events: none;
+}
+
+.player-btn {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,.82);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: .25rem .4rem;
+  border-radius: 7px;
+  line-height: 1;
+  min-width: 38px;
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color .15s, background .15s;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.player-btn:hover       { color: #fff; background: rgba(255,255,255,.15); }
+.player-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.player-btn:disabled    { opacity: .3; cursor: not-allowed; }
+
+.player-progresso-wrap {
+  flex: 1;
+  min-width: 0;
+  padding: 0 .4rem;
+  cursor: default;
+}
+.player-progresso-trilha {
+  height: 4px;
+  background: rgba(255,255,255,.2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.player-progresso-barra {
+  height: 100%;
+  background: linear-gradient(90deg, var(--amarelo), var(--coral));
+  border-radius: 4px;
+  transition: width .4s ease;
+  width: 0%;
+}
+
+/* The home link inherits .player-btn; just ensure no underline */
+.player-home { text-decoration: none; }
+
+.player-cap-num {
+  font-family: var(--fonte-titulo);
+  font-size: .8rem;
+  color: rgba(255,255,255,.65);
+  white-space: nowrap;
+  min-width: 44px;
+  text-align: center;
+}
+
+/* ─────────────────────────────────────────────
+   ANIMAÇÕES
+───────────────────────────────────────────── */
+@keyframes pulsa-astro {
+  0%,100% { transform: scale(1); }
+  50%      { transform: scale(1.08); }
+}
+@keyframes pisca-estrelas {
+  0%,100% { opacity: .85; }
+  50%      { opacity: .3; }
+}
+@keyframes voa-gaivota {
+  from { transform: translateX(0) translateY(0); }
+  to   { transform: translateX(115vw) translateY(-45px); }
+}
+@keyframes cruza-nuvem {
+  from { transform: translateX(0); }
+  to   { transform: translateX(145vw); }
+}
+@keyframes onda {
+  0%   { transform: translateX(0) rotate(0deg); }
+  50%  { transform: translateX(12%) rotate(1.5deg); }
+  100% { transform: translateX(0) rotate(0deg); }
+}
+@keyframes balanca-navio {
+  0%,100% { transform: rotate(-2.5deg) translateY(0); }
+  50%     { transform: rotate(2deg) translateY(-11px); }
+}
+@keyframes sobe-fumaca {
+  0%   { opacity: 0; transform: translate(0,0) scale(1); }
+  18%  { opacity: .65; }
+  100% { opacity: 0; transform: translate(-18px,-38px) scale(2); }
+}
+@keyframes esteira {
+  0%,100% { opacity: .55; width: 70px; }
+  50%     { opacity: .25; width: 35px; }
+}
+@keyframes flutua {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-7px); }
+}
+@keyframes varre-feixe {
+  0%,100% { transform: rotate(0deg); opacity: .75; }
+  50%     { transform: rotate(22deg); opacity: .38; }
+}
+@keyframes pisca-luzes {
+  0%,100% { opacity: 1; }
+  50%     { opacity: .5; }
+}
+@keyframes aparece-emoji {
+  from { opacity: 0; transform: scale(.5) rotate(-10deg); }
+  to   { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+@keyframes entra-titulo {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─────────────────────────────────────────────
+   UTILITÁRIOS
+───────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVO
+───────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .zona-narrativa      { padding: 0 5% 1.5rem; bottom: 38%; }
+  .cena-texto          { max-height: 42vh; }
+  .camada-oceano       { height: 34%; }
+  .player              { gap: .2rem; padding: 0 .4rem; }
+  .player-cap-num      { display: none; }
+  .final               { padding: 4rem 4% 5rem; }
+}
+
+@media (max-height: 480px) and (orientation: landscape) {
+  .camada-oceano   { height: 28%; }
+  .zona-narrativa  { bottom: 30%; }
+  .cena-texto      { max-height: 48vh; }
+  .barra-cinema    { height: 4vh; }
+}
+
+/* ─────────────────────────────────────────────
+   ACESSIBILIDADE — prefers-reduced-motion
+   (common.css já desativa animações globais;
+    este bloco desativa as transições longas)
+───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .fade-cena { transition: none; }
+  .camada-ceu { transition: none; }
+  .navio { transition: none; }
+  .cena-texto p { transition: none; }
+  .player { transition: none; }
+  .estrelas, .ilha, .farol, .gaivota, .luzes-porto { transition: none; }
+}
