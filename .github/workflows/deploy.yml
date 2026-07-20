@@ -1,4 +1,4 @@
-name: Deploy static site to GitHub Pages
+name: Publish static site to gh-pages
 
 on:
   push:
@@ -6,31 +6,25 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
-# Permite apenas um deploy simultâneo
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # publica a raiz do repositório (site estático)
-          path: "."
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Publish site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch --orphan gh-pages
+          git checkout "$GITHUB_SHA" -- .
+          rm -rf .github
+          git add --all
+          git commit -m "Deploy ${GITHUB_SHA}"
+          git push --force origin gh-pages
