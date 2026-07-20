@@ -23,8 +23,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch --orphan gh-pages
-          git checkout "$GITHUB_SHA" -- .
+          git archive "$GITHUB_SHA" | tar -x
+          # Workflow files are not part of the published site.
           rm -rf .github
           git add --all
-          git commit -m "Deploy ${GITHUB_SHA}"
+          git commit -m "Publish ${GITHUB_SHA}"
           git push --force origin gh-pages
