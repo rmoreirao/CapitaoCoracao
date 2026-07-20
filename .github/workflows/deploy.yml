@@ -20,10 +20,12 @@ jobs:
         uses: actions/checkout@v4
       - name: Publish site
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git archive "$GITHUB_SHA" -o "$RUNNER_TEMP/site.tar"
           git switch --orphan gh-pages
+          git clean -fdx
           tar -xf "$RUNNER_TEMP/site.tar"
           # Workflow files are not part of the published site.
           rm -rf .github
