@@ -1,4 +1,4 @@
-name: Publish static site to gh-pages
+name: Deploy static site to GitHub Pages
 
 on:
   push:
@@ -6,32 +6,31 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
   group: "pages"
   cancel-in-progress: true
 
 jobs:
-  publish:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Publish site
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git archive "$GITHUB_SHA" -o "$RUNNER_TEMP/site.tar"
-          if git ls-remote --exit-code --heads origin gh-pages; then
-            git fetch origin gh-pages:refs/remotes/origin/gh-pages
-          fi
-          git switch --orphan pages-publish
-          git clean -fdx
-          tar -xf "$RUNNER_TEMP/site.tar"
-          # Workflow files are not part of the published site.
-          rm -rf .github
-          git add --all
-          git commit --allow-empty -m "Publish ${GITHUB_SHA}"
-          git push --force-with-lease=gh-pages origin HEAD:gh-pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
+      - name: Deploy site
+        id: deployment
+        uses: actions/deploy-pages@v4
