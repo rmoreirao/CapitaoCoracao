@@ -2,7 +2,7 @@ name: Publish static site to gh-pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "copilot/fix-gh-actions-deploy-gh-pages"]
   workflow_dispatch:
 
 permissions:
