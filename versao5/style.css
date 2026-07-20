@@ -65,3 +65,7 @@ header p { margin: .3rem; font-weight: 800; }
   .porto-mapa:nth-child(even):hover, .porto-mapa:nth-child(even).ativo { transform: scale(1.1); }
   .pergaminho { margin-top: 3rem; padding: 1.2rem; }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

@@ -58,3 +58,7 @@ body {
   .navio { bottom: 25%; }
   .cartao-cena, .final { max-height: 79vh; padding: 1.2rem; }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
