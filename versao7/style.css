@@ -25,6 +25,10 @@ body {
   justify-content: center;
 }
 
+.tela[hidden] {
+  display: none;
+}
+
 /* Tela que pode rolar (créditos finais) */
 .tela-scroll {
   overflow-y: auto;
