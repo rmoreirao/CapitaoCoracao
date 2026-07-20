@@ -1,0 +1,113 @@
+/* ===== Capitão Coração — estilos compartilhados ===== */
+:root {
+  --azul-mar: #0a4d8c;
+  --azul-fundo: #cfeefc;
+  --azul-claro: #7fd0f2;
+  --areia: #fde8c8;
+  --coral: #ff6b6b;
+  --amarelo: #ffd166;
+  --branco: #ffffff;
+  --texto: #093352;
+  --sombra: 0 8px 24px rgba(9, 51, 82, .18);
+  --fonte-titulo: "Baloo 2", "Comic Sans MS", "Trebuchet MS", sans-serif;
+  --fonte-texto: "Nunito", "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--fonte-texto);
+  color: var(--texto);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .titulo { font-family: var(--fonte-titulo); }
+
+.botao {
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  background: var(--coral);
+  color: #fff;
+  font-family: var(--fonte-titulo);
+  font-size: 1.1rem;
+  padding: .8rem 1.8rem;
+  border-radius: 999px;
+  box-shadow: var(--sombra);
+  transition: transform .15s ease, background .2s ease;
+  text-decoration: none;
+}
+.botao:hover { transform: translateY(-3px) scale(1.03); }
+.botao:active { transform: translateY(0) scale(.98); }
+.botao.secundario { background: var(--azul-mar); }
+
+.voltar-inicio {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 50;
+  background: rgba(255,255,255,.85);
+  color: var(--azul-mar);
+  padding: .4rem 1rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: var(--sombra);
+}
+
+/* ===== Galeria de fotos da família (placeholders) ===== */
+.galeria-familia {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px;
+  max-width: 900px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+.foto-familia {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--sombra);
+  transform: rotate(-1.2deg);
+  transition: transform .2s ease;
+}
+.foto-familia:nth-child(even) { transform: rotate(1.4deg); }
+.foto-familia:hover { transform: rotate(0) scale(1.04); }
+.foto-familia .moldura {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background:
+    repeating-linear-gradient(45deg, #eef6fb, #eef6fb 12px, #e3f0f9 12px, #e3f0f9 24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--azul-mar);
+}
+.foto-familia .moldura::before {
+  content: "📷 Foto aqui";
+  font-family: var(--fonte-titulo);
+  font-size: 1rem;
+  opacity: .7;
+}
+.foto-familia img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* quando a imagem carrega, esconde o texto placeholder */
+.foto-familia img[src] { background: #fff; }
+.foto-familia .legenda {
+  padding: .6rem;
+  font-weight: 700;
+  text-align: center;
+  font-size: .95rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

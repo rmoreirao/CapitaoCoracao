@@ -1,0 +1,65 @@
+body {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #fbe0e6 0%, #f7c9d6 40%, #b8d9f0 100%);
+}
+
+.topo { text-align: center; padding: 4.2rem 1rem 1rem; }
+.topo h1 { color: var(--coral); font-size: clamp(2rem, 7vw, 3.4rem); margin: 0; }
+.topo p { font-weight: 700; opacity: .85; }
+
+.palco-familia { max-width: 720px; margin: 1rem auto; padding: 0 1rem 2rem; }
+
+/* cada narrador é uma "fala" com balão */
+.fala {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin: 1.6rem 0;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.fala.visivel { opacity: 1; transform: none; }
+.fala:nth-child(even) { flex-direction: row-reverse; }
+
+.avatar {
+  flex: 0 0 auto;
+  width: 66px; height: 66px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem;
+  background: #fff;
+  box-shadow: var(--sombra);
+  border: 3px solid var(--amarelo);
+}
+.balao {
+  background: #fff;
+  border-radius: 20px;
+  padding: 1rem 1.2rem;
+  box-shadow: var(--sombra);
+  position: relative;
+  flex: 1;
+}
+.balao .quem {
+  font-family: var(--fonte-titulo);
+  color: var(--azul-mar);
+  display: block;
+  margin-bottom: .2rem;
+}
+.balao .tema { font-size: .85rem; font-weight: 700; color: var(--coral); margin-bottom: .4rem; }
+.balao p { margin: 0 0 .5rem; line-height: 1.6; }
+.balao p:last-child { margin-bottom: 0; }
+
+.encerramento {
+  text-align: center;
+  background: rgba(255,255,255,.9);
+  max-width: 760px;
+  margin: 1rem auto 3rem;
+  padding: 2rem 1.2rem;
+  border-radius: 26px;
+  box-shadow: var(--sombra);
+}
+.encerramento .emoji-final { font-size: 3.4rem; }
+.encerramento h2 { color: var(--azul-mar); font-size: clamp(1.3rem, 4.5vw, 1.9rem); }
+.assinatura { font-style: italic; font-weight: 700; color: var(--coral); }
+.sub { font-weight: 700; }
