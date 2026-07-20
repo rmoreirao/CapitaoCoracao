@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O Capitão Coração — Mapa da Grande Viagem 🗺️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/common.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="voltar-inicio" href="../index.html">⬅ Início</a>
+  <header>
+    <div class="compasso" aria-hidden="true">🧭</div>
+    <h1>O Mapa da Grande Viagem</h1>
+    <p>Escolha um porto e acompanhe o navio pelo mapa do Capitão.</p>
+  </header>
+
+  <main class="mapa">
+    <div class="tracado" aria-hidden="true"></div>
+    <div class="navio-mapa" id="navio" aria-hidden="true">⛵</div>
+    <div class="portos" id="portos"></div>
+    <article class="pergaminho" id="pergaminho" aria-live="polite">
+      <span id="capitulo">Diário de bordo</span>
+      <div class="simbolo" id="simbolo">🗺️</div>
+      <h2 id="titulo">Pronto para começar?</h2>
+      <div id="texto"><p>Toque no primeiro porto para abrir a história.</p></div>
+      <div class="controles">
+        <button class="botao secundario" id="anterior" disabled>⬅ Porto anterior</button>
+        <button class="botao" id="proximo">Primeiro porto ➡</button>
+      </div>
+    </article>
+    <section class="tesouro" id="tesouro" hidden>
+      <div class="bau">🎁</div>
+      <h2>O maior tesouro é a família</h2>
+      <p id="assinatura"></p>
+      <div id="galeria"></div>
+    </section>
+  </main>
+
+  <script src="../assets/js/story.js"></script>
+  <script src="../assets/js/familia.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

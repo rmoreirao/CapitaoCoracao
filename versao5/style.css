@@ -1,0 +1,67 @@
+body {
+  min-height: 100vh;
+  background: #d9b979;
+  background-image: radial-gradient(#9b7139 1px, transparent 1px), linear-gradient(135deg, rgba(255,255,255,.25), transparent);
+  background-size: 22px 22px, auto;
+}
+
+header { text-align: center; padding: 4rem 1rem 1.2rem; color: #533817; }
+header h1 { margin: 0; font-size: clamp(2rem, 6vw, 3.5rem); }
+header p { margin: .3rem; font-weight: 800; }
+.compasso { position: absolute; right: 5%; top: 2.5rem; font-size: 5rem; animation: busca-norte 7s ease-in-out infinite; }
+
+.mapa {
+  position: relative; width: min(1050px, 94vw); min-height: 680px; margin: 0 auto 3rem; padding: 2rem;
+  overflow: hidden; border: 8px solid #7b5429; border-radius: 28px; box-shadow: 0 18px 45px rgba(55,31,8,.35);
+  background: linear-gradient(rgba(255,244,193,.88), rgba(239,210,145,.92));
+}
+.mapa::before, .mapa::after { content: "🌊 〰 🌊 〰 🌊"; position: absolute; color: #4f93a8; opacity: .4; font-size: 2rem; animation: correnteza 9s linear infinite; }
+.mapa::before { top: 8%; left: 8%; }
+.mapa::after { bottom: 8%; right: 7%; animation-direction: reverse; }
+.tracado {
+  position: absolute; inset: 12% 8% 30%; border: 5px dashed rgba(116,73,29,.4); border-radius: 50%;
+  transform: rotate(-6deg); animation: pontilha 18s linear infinite;
+}
+.portos { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(5, 1fr); gap: 3.3rem 1rem; }
+.porto-mapa {
+  position: relative; border: 0; background: transparent; color: #65431f; cursor: pointer; font: 800 .86rem var(--fonte-texto);
+  transition: transform .2s ease;
+}
+.porto-mapa:nth-child(even) { transform: translateY(42px); }
+.porto-mapa:hover, .porto-mapa.ativo { transform: scale(1.18); }
+.porto-mapa:nth-child(even):hover, .porto-mapa:nth-child(even).ativo { transform: translateY(42px) scale(1.18); }
+.porto-mapa .icone { display: block; font-size: 2.7rem; filter: drop-shadow(0 4px 2px rgba(0,0,0,.18)); }
+.porto-mapa.ativo .icone { animation: salta .65s ease; }
+.navio-mapa {
+  position: absolute; z-index: 4; left: 6%; top: 19%; font-size: 3.5rem; pointer-events: none;
+  filter: drop-shadow(0 7px 3px rgba(0,0,0,.2)); transition: left 1s ease, top 1s ease; animation: flutua-mapa 2s ease-in-out infinite;
+}
+.pergaminho, .tesouro {
+  position: relative; z-index: 5; width: min(650px, 95%); margin: 5rem auto 0; padding: 1.5rem 2rem; text-align: center;
+  border: 2px solid #b28142; border-radius: 8px 28px; background: #fff4c7; box-shadow: 8px 10px 0 rgba(116,73,29,.22);
+}
+.pergaminho.aberto { animation: abre-mapa .55s ease; }
+.pergaminho > span { color: #9b4a2c; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
+.simbolo, .bau { font-size: 3.5rem; margin-top: .2rem; }
+.pergaminho h2, .tesouro h2 { color: #68431e; margin: .1rem 0 .6rem; }
+.pergaminho #texto { text-align: left; line-height: 1.55; }
+.pergaminho #texto p { margin: .35rem 0; }
+.controles { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
+.tesouro { margin-top: 4rem; }
+.bau { animation: salta 1.6s ease-in-out infinite; }
+
+@keyframes busca-norte { 25% { transform: rotate(22deg); } 65% { transform: rotate(-18deg); } }
+@keyframes correnteza { 50% { transform: translateX(80px); } }
+@keyframes pontilha { to { transform: rotate(354deg); } }
+@keyframes salta { 50% { transform: translateY(-14px) scale(1.08); } }
+@keyframes flutua-mapa { 50% { transform: translateY(-8px) rotate(5deg); } }
+@keyframes abre-mapa { from { opacity: 0; transform: scaleY(.2); } }
+
+@media (max-width: 700px) {
+  .compasso { font-size: 3rem; top: 3.4rem; opacity: .6; }
+  .mapa { padding: 1.2rem .7rem; }
+  .portos { grid-template-columns: repeat(3, 1fr); gap: 2rem .3rem; }
+  .porto-mapa:nth-child(even) { transform: none; }
+  .porto-mapa:nth-child(even):hover, .porto-mapa:nth-child(even).ativo { transform: scale(1.1); }
+  .pergaminho { margin-top: 3rem; padding: 1.2rem; }
+}

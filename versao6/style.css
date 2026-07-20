@@ -1,0 +1,68 @@
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: linear-gradient(180deg, #071b41 0%, #704575 24%, #ff9d72 48%, #63c8e5 70%, #0878ac 100%);
+}
+
+.paisagem { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.lua { position: absolute; top: 7%; right: 10%; font-size: 5rem; filter: drop-shadow(0 0 25px #fff5bf); animation: lua 5s ease-in-out infinite; }
+.estrelas { position: absolute; top: 5%; left: 8%; width: 70%; color: #fff; font-size: 2rem; animation: pisca 2.5s ease-in-out infinite; }
+.farol { position: absolute; z-index: 2; right: 7%; bottom: 26%; font-size: 2.4rem; text-align: center; }
+.farol span { display: block; font-size: 6rem; }
+.feixe {
+  position: absolute; z-index: 1; right: 11%; bottom: 42%; width: 52vw; height: 12vh;
+  background: linear-gradient(90deg, transparent, rgba(255,248,174,.4)); clip-path: polygon(0 35%, 100% 0, 100% 100%, 0 65%);
+  transform-origin: right center; animation: varre 6s ease-in-out infinite;
+}
+.gaivota { position: absolute; top: 28%; color: #fff; font: 3rem sans-serif; animation: voa 13s linear infinite; }
+.g1 { left: -10%; }
+.g2 { left: -30%; top: 35%; font-size: 2rem; animation-delay: -6s; animation-duration: 18s; }
+.barco-scroll {
+  position: absolute; z-index: 4; left: 8%; bottom: 23%; font-size: clamp(4rem, 8vw, 7rem);
+  filter: drop-shadow(0 10px 4px rgba(0,0,0,.3)); transition: left .15s linear; animation: navega 2.4s ease-in-out infinite;
+}
+.mar { position: absolute; left: -25%; width: 150%; border-radius: 48%; animation: mare 6s linear infinite; }
+.mar-1 { height: 24%; bottom: 8%; background: rgba(9,130,181,.82); }
+.mar-2 { z-index: 5; height: 18%; bottom: -5%; background: #075a91; animation-direction: reverse; animation-duration: 4s; }
+
+.abertura, #capitulos, .chegada { position: relative; z-index: 7; }
+.abertura { height: 100vh; display: grid; place-content: center; text-align: center; color: #fff; text-shadow: 0 3px 12px #071b41; }
+.abertura h1 { margin: 0; font-size: clamp(3rem, 10vw, 6rem); }
+.abertura p { margin: 0; font-size: 1.25rem; font-weight: 800; text-transform: uppercase; letter-spacing: .16em; }
+.seta { font-size: 3rem; animation: seta 1.4s ease-in-out infinite; }
+#capitulos { width: min(760px, 92vw); margin: 0 auto; padding-bottom: 22vh; }
+.memoria {
+  min-height: 76vh; margin-bottom: 16vh; padding: 2rem; display: flex; flex-direction: column; justify-content: center;
+  border: 1px solid rgba(255,255,255,.55); border-radius: 32px; color: #fff;
+  background: rgba(4,38,74,.72); box-shadow: 0 20px 60px rgba(0,0,0,.3); backdrop-filter: blur(12px);
+  opacity: .25; transform: translateY(70px) scale(.94); transition: opacity .8s ease, transform .8s ease;
+}
+.memoria:nth-child(even) { background: rgba(91,42,82,.7); }
+.memoria.visivel { opacity: 1; transform: none; }
+.memoria .icone { font-size: 5rem; text-align: center; animation: boia 3s ease-in-out infinite; }
+.memoria .numero { font-weight: 900; color: var(--amarelo); letter-spacing: .1em; text-transform: uppercase; }
+.memoria h2 { margin: .2rem 0 .7rem; font-size: clamp(1.8rem, 5vw, 2.8rem); }
+.memoria p { margin: .35rem 0; font-size: 1.15rem; line-height: 1.6; }
+.chegada {
+  width: min(900px, 94vw); margin: 0 auto 3rem; padding: 2rem 1rem; text-align: center; border-radius: 30px;
+  background: rgba(255,255,255,.94); box-shadow: var(--sombra);
+}
+.chegada h2 { color: var(--azul-mar); }
+.chegada > p { font-weight: 700; font-style: italic; }
+.coracoes { font-size: 3.5rem; animation: boia 2s ease-in-out infinite; }
+
+@keyframes lua { 50% { transform: scale(1.08) rotate(5deg); } }
+@keyframes pisca { 50% { opacity: .35; } }
+@keyframes varre { 50% { transform: rotate(18deg); opacity: .65; } }
+@keyframes voa { to { transform: translateX(125vw) translateY(-60px); } }
+@keyframes navega { 50% { transform: translateY(-13px) rotate(4deg); } 0%,100% { transform: rotate(-3deg); } }
+@keyframes mare { 50% { transform: translateX(12%) rotate(1deg); } }
+@keyframes seta { 50% { transform: translateY(12px); } }
+@keyframes boia { 50% { transform: translateY(-10px); } }
+
+@media (max-width: 600px) {
+  .farol { right: -1rem; }
+  .farol span { font-size: 4.5rem; }
+  .memoria { padding: 1.3rem; }
+  .barco-scroll { bottom: 19%; }
+}

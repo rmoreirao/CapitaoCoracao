@@ -1,0 +1,60 @@
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: linear-gradient(180deg, #79d4ff 0%, #d9f5ff 54%, #1185bd 55%, #064d83 100%);
+}
+
+.mar-cinematografico { position: fixed; inset: 0; overflow: hidden; pointer-events: none; }
+.sol {
+  position: absolute; width: 110px; height: 110px; top: 7%; right: 8%; border-radius: 50%;
+  background: #ffe56e; box-shadow: 0 0 55px #fff29c; animation: pulsa-sol 4s ease-in-out infinite;
+}
+.nuvem { position: absolute; font-size: 4rem; opacity: .8; animation: cruza-ceu 28s linear infinite; }
+.nuvem-1 { top: 12%; left: -20%; }
+.nuvem-2 { top: 25%; left: -35%; font-size: 2.6rem; animation-duration: 38s; animation-delay: -12s; }
+.ilha { position: absolute; right: 7%; bottom: 28%; font-size: 5rem; filter: drop-shadow(0 8px 5px rgba(0,0,0,.25)); }
+.navio {
+  --destino: 12vw;
+  position: absolute; z-index: 3; left: var(--destino); bottom: 29%; font-size: clamp(4rem, 9vw, 7rem);
+  filter: drop-shadow(0 12px 5px rgba(0,0,0,.25)); transition: left 1.2s cubic-bezier(.2,.8,.3,1);
+  animation: balanco 2.2s ease-in-out infinite;
+}
+.navio.viajando { animation: balanco 2.2s ease-in-out infinite, impulso 1.2s ease; }
+.fumaca { position: absolute; font-size: 1.2rem; left: 45%; top: -8%; opacity: 0; animation: sobe-fumaca 2s linear infinite; }
+.ondas { position: absolute; left: -50%; width: 200%; border-radius: 45%; animation: onda 7s linear infinite; }
+.ondas-fundo { height: 28%; bottom: 8%; background: #198fc5; opacity: .75; }
+.ondas-frente { height: 25%; bottom: -8%; background: #075b94; animation-duration: 5s; animation-direction: reverse; }
+
+.tela { position: relative; z-index: 5; min-height: 100vh; display: grid; place-items: center; padding: 4.5rem 1rem 2rem; }
+.cartao-cena, .final {
+  width: min(680px, 94vw); max-height: 84vh; overflow-y: auto; padding: 1.7rem;
+  text-align: center; border-radius: 28px; background: rgba(255,255,255,.93); box-shadow: 0 18px 50px rgba(4,52,85,.3);
+  backdrop-filter: blur(8px);
+}
+.cartao-cena.troca { animation: entra-cena .65s ease; }
+.capitulo { display: inline-block; padding: .3rem .9rem; border-radius: 999px; background: var(--azul-mar); color: #fff; font-weight: 800; }
+.emoji { font-size: 4rem; margin-top: .4rem; animation: aparece .6s cubic-bezier(.2,1.7,.5,1); }
+.cartao-cena h1, .final h2 { color: var(--azul-mar); margin: .15rem 0 .6rem; }
+.texto { text-align: left; line-height: 1.55; font-size: 1.08rem; }
+.texto p { margin: .45rem 0; animation: legenda .5s ease both; }
+.progresso { height: 9px; margin: 1rem 0; overflow: hidden; border-radius: 9px; background: #d7edf7; }
+.progresso span { display: block; width: 0; height: 100%; background: linear-gradient(90deg, #ffd166, #ff6b6b); transition: width .8s ease; }
+.controles { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.final .porto { font-size: 4rem; animation: aparece .8s ease; }
+.final > p { font-weight: 700; font-style: italic; }
+
+@keyframes pulsa-sol { 50% { transform: scale(1.12); box-shadow: 0 0 85px #fff5b8; } }
+@keyframes cruza-ceu { to { transform: translateX(145vw); } }
+@keyframes balanco { 50% { transform: translateY(-12px) rotate(3deg); } 0%,100% { transform: rotate(-3deg); } }
+@keyframes impulso { 50% { filter: drop-shadow(-25px 10px 5px rgba(0,0,0,.2)); } }
+@keyframes sobe-fumaca { 20% { opacity: .7; } 100% { opacity: 0; transform: translate(-22px,-48px) scale(1.8); } }
+@keyframes onda { 50% { transform: translateX(18%) rotate(2deg); } }
+@keyframes entra-cena { from { opacity: 0; transform: scale(.92) translateY(25px); } }
+@keyframes aparece { from { opacity: 0; transform: scale(.4) rotate(-12deg); } }
+@keyframes legenda { from { opacity: 0; transform: translateX(-18px); } }
+
+@media (max-width: 600px) {
+  .ilha { right: -1rem; bottom: 24%; }
+  .navio { bottom: 25%; }
+  .cartao-cena, .final { max-height: 79vh; padding: 1.2rem; }
+}
