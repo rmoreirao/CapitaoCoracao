@@ -501,12 +501,15 @@ body {
   border: 2px solid rgba(255,255,255,.22);
 }
 #galeria-final .foto-familia .moldura {
+  background: rgba(255,255,255,.06);
+}
+#galeria-final .foto-familia .moldura.sem-foto {
   background: repeating-linear-gradient(45deg,
     rgba(255,255,255,.06), rgba(255,255,255,.06) 12px,
     rgba(255,255,255,.1) 12px, rgba(255,255,255,.1) 24px);
   color: rgba(255,255,255,.7);
 }
-#galeria-final .foto-familia .moldura::before {
+#galeria-final .foto-familia .moldura.sem-foto::before {
   color: rgba(255,255,255,.7);
 }
 #galeria-final .legenda {

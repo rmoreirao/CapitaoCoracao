@@ -125,14 +125,7 @@ window.CAPITAO_STORY = {
       ]
     }
   ],
-  assinatura: "Com todo o amor, sua esposa, seus quatro filhos, suas três noras e seus dois netos.",
-  // Placeholders para as fotos da família — substitua os arquivos na pasta /fotos
-  fotos: [
-    { arquivo: "../fotos/foto1.jpg", legenda: "O Capitão e a esposa" },
-    { arquivo: "../fotos/foto2.jpg", legenda: "Os quatro filhos" },
-    { arquivo: "../fotos/foto3.jpg", legenda: "As três noras" },
-    { arquivo: "../fotos/foto4.jpg", legenda: "Os dois netos" },
-    { arquivo: "../fotos/foto5.jpg", legenda: "A família inteira" },
-    { arquivo: "../fotos/foto6.jpg", legenda: "Um almoço de domingo" }
-  ]
+  assinatura: "Com todo o amor, sua esposa, seus quatro filhos, suas três noras e seus dois netos."
+  // A galeria de fotos vem de `fotos/fotos.js`, gerado automaticamente a partir
+  // do conteúdo da pasta /fotos por `tools/gerar-fotos.mjs`.
 };

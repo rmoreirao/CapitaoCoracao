@@ -30,10 +30,15 @@ A página inicial [`index.html`](index.html) reúne as sete versões.
 
 ## 📸 Fotos da família
 
-As sete versões terminam com uma galeria de fotos da família. Os espaços já
-estão prontos como **placeholders** (mostram "📷 Foto aqui"). Basta adicionar as
-imagens reais na pasta [`fotos/`](fotos/) — veja as instruções em
-[`fotos/README.md`](fotos/README.md).
+As sete versões terminam com uma **galeria automática** montada a partir do
+conteúdo da pasta [`fotos/`](fotos/). Para atualizar as fotos do site, basta
+adicionar ou remover arquivos nessa pasta (nomeados como `pessoa-01.jpg`) e dar
+`push`: o workflow regera o manifesto `fotos/fotos.js` e republica o site.
+Nenhuma edição de código é necessária — veja [`fotos/README.md`](fotos/README.md).
+
+A legenda de cada foto vem do prefixo do nome do arquivo (`mae-02.jpg` → *Mãe*)
+e as imagens são exibidas na proporção original, com carregamento preguiçoso
+(`loading="lazy"`).
 
 ## 🚀 Como publicar no GitHub Pages
 
@@ -67,7 +72,9 @@ index.html            # página inicial com as sete versões
 assets/
   css/common.css      # estilos compartilhados (tema, galeria de fotos)
   js/story.js         # texto da história (compartilhado pelas 7 versões)
-  js/familia.js       # renderiza a galeria de fotos (placeholders)
+  js/familia.js       # renderiza a galeria de fotos
+tools/
+  gerar-fotos.mjs     # gera fotos/fotos.js e fotos/fotos.json a partir de /fotos
 versao1/              # site interativo "Navegando"
 versao2/              # livro ilustrado
 versao3/              # a família conta a história
@@ -75,11 +82,13 @@ versao4/              # travessia cinematográfica
 versao5/              # mapa interativo da viagem
 versao6/              # mar de memórias em rolagem
 versao7/              # jornada cinematográfica (filme automático)
-fotos/                # coloque aqui as fotos reais da família
+fotos/                # fotos da família (+ fotos.js/fotos.json gerados)
 ```
 
 > O texto da história fica em um único lugar (`assets/js/story.js`), então
 > qualquer ajuste no conteúdo aparece automaticamente nas sete versões.
+> A lista de fotos é gerada por `tools/gerar-fotos.mjs` — nunca edite
+> `fotos/fotos.js` ou `fotos/fotos.json` à mão.
 
 ## 🎥 Versão 7 — Jornada Cinematográfica
 

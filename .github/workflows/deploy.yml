@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -24,6 +24,32 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Atualizar manifesto de fotos
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          node tools/gerar-fotos.mjs
+          if [ -z "$(git status --porcelain fotos/fotos.js fotos/fotos.json)" ]; then
+            echo "Manifesto de fotos já está atualizado."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add fotos/fotos.js fotos/fotos.json
+          git commit -m "chore: atualiza manifesto da galeria de fotos"
+          # o checkout deixa o HEAD destacado, por isso o push é explícito
+          if ! git push origin "HEAD:refs/heads/$BRANCH"; then
+            git fetch origin "$BRANCH"
+            git rebase "origin/$BRANCH"
+            git push origin "HEAD:refs/heads/$BRANCH" ||
+              echo "aviso: não foi possível commitar o manifesto; o site será publicado mesmo assim."
+          fi
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
