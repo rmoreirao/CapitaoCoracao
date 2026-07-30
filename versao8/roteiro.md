@@ -14,11 +14,12 @@
 |                     |                                                        |
 |---------------------|--------------------------------------------------------|
 | **Formato**         | Filme automático em SVG animado, sem interação obrigatória |
-| **Duração**         | ~5 minutos (11 cenas)                                  |
-| **Narração**        | Legendas cinematográficas na tela (sem voz)            |
-| **Trilha**          | Ambiente sintetizado no navegador (Web Audio), mudo por padrão |
+| **Duração**         | ~5 min 50 s de história + ~1 min 10 s de fotos          |
+| **Narração**        | Legendas cinematográficas na tela (sem voz, sem nomes)  |
+| **Trilha**          | Sintetizada no navegador, muda de humor a cada cena; muda por padrão |
 | **Câmera**          | `viewBox` animado sobre um mundo SVG contínuo de 4000 × 1200 |
 | **Fonte do texto**  | Narração ampliada, exclusiva desta versão              |
+| **Gravação**        | `?video=1` esconde toda a interface                    |
 
 A grande diferença para a Versão 7: lá o cenário é um mosaico de emojis que
 troca de cor a cada capítulo. Aqui existe **um único mundo desenhado**, e a
@@ -91,11 +92,13 @@ projetado no roteiro seja exatamente o que aparece na tela.
 | Amanhecer    | `#2b3a6b` → `#ffb27a`    | `#1b5a86`   | dourada, rasante |
 | Manhã        | `#7ec8f0` → `#cdeefc`    | `#127fbd`   | clara, alta |
 | Meio-dia     | `#4fb3e8` → `#bfe9ff`    | `#1596d7`   | dura, vertical |
+| Tempestade   | `#2b3742` → `#5c6b75`    | `#1d3a4a`   | chumbo, sem sol |
 | Neblina      | `#8fa3ad` → `#c9d4d9`    | `#4a6b7a`   | difusa, sem sombra |
 | Tarde        | `#5fb2e0` → `#ffe3b0`    | `#0c82be`   | quente, lateral |
-| Pôr do sol   | `#5a2a63` → `#ff9350`    | `#b4501e`   | laranja intensa |
+| Pôr do sol   | `#5a2a63` → `#ff9350`    | `#a8552c`   | laranja intensa |
 | Crepúsculo   | `#241a4d` → `#7a4a8c`    | `#0a2850`   | violeta |
 | Porto (noite)| `#0a1836` → `#2b4a7a`    | `#06213f`   | âmbar das lanternas |
+| Alvorada     | `#1d2f5e` → `#ffc79a`    | `#134f7d`   | primeira luz |
 
 ---
 
@@ -139,7 +142,7 @@ Ondas distantes entram do silêncio (ganho 0 → 0.35 em 6 s). Vento tênue.
 ---
 
 ## Cena 1 — Um homem muito querido
-*(capítulo 1)* · **Duração:** 34 s · **Céu:** amanhecer · **Narrador:** Esposa
+*(capítulo 1)* · **Duração:** 34 s · **Céu:** amanhecer
 
 ### Narração
 - `[0:02]` Era uma vez um homem muito querido.
@@ -174,7 +177,7 @@ Ondas em 0.35, vento 0.15. Uma gaivota isolada em `[0:10]`.
 ---
 
 ## Cena 2 — O navio valente
-*(capítulo 2)* · **Duração:** 34 s · **Céu:** manhã · **Narrador:** Filho 1
+*(capítulo 2)* · **Duração:** 34 s · **Céu:** manhã
 
 ### Narração
 - `[0:02]` O Capitão tinha um navio muito especial.
@@ -209,7 +212,7 @@ Ondas 0.4. Sino da boia em `[0:16]` e `[0:24]`. Ronco grave do motor (0.12).
 ---
 
 ## Cena 3 — A viagem do jeito dele
-*(capítulo 3)* · **Duração:** 32 s · **Céu:** meio-dia · **Narrador:** Filho 2
+*(capítulo 3)* · **Duração:** 32 s · **Céu:** meio-dia → tempestade
 
 ### Narração
 - `[0:02]` O Capitão ouvia… sorria… fazia uma piada… e seguia viagem do mesmo
@@ -221,28 +224,41 @@ Ondas 0.4. Sino da boia em `[0:16]` e `[0:24]`. Ronco grave do motor (0.12).
   precisava.
 
 ### Imagem
-Sol a pino, luz dura, sombras curtas. O mar fica mais picado: as ondas ganham
-amplitude e cristas brancas. O navio corre depressa e **afunda um pouco mais na
-água** a cada frase — a linha de flutuação sobe visivelmente.
+Começa com sol a pino, luz dura, sombras curtas. O mar fica mais picado: as
+ondas ganham amplitude e cristas brancas, e o navio **afunda um pouco mais na
+água** a cada frase.
+
+A partir de `[0:16]` **o tempo fecha**: o céu perde o azul e vira chumbo, as
+nuvens engrossam, começa a chover e o horizonte some atrás da cortina d'água.
+É a tempestade que os mecânicos avisaram na cena anterior.
 
 ### Câmera
 Travelling mais rápido, com balanço: `880 380 1000 563` → `1560 300 1500 844`.
 Um leve *shake* vertical (±4 px, 0.8 s) acompanha as ondas.
 
 ### Animação
-- **Ondas:** amplitude cresce de 18 px para 34 px ao longo da cena.
+- **Ondas:** amplitude cresce de 18 px para 42 px ao longo da cena.
 - **Navio:** afunda 16 px no total; a inclinação aumenta para ±3°.
 - **Esteira:** rastro de espuma mais longo e mais opaco.
 - **Respingos:** partículas brancas surgem na proa a cada choque de onda.
+- **Céu:** de `[0:16]` a `[0:24]` interpola de meio-dia para o tema
+  `tempestade` (chumbo).
+- **Chuva:** entra em `[0:21]`, riscos inclinados caindo em toda a largura do
+  quadro.
 - Em `[0:23]`, a fumaça engasga: uma baforada falha e sai escura.
+- **Relâmpagos:** clarão branco na tela em `[0:24]` e um clarão duplo em
+  `[0:29]`.
 
 ### Som
-Ondas 0.55, com colisões acentuadas. Motor sobe para 0.2 e fica irregular.
+Ondas 0.58, com colisões acentuadas. Motor sobe para 0.2 e fica irregular.
+Vento sobe para 0.35 e entra a camada de chuva (0.35).
+**Trovão** logo depois de cada relâmpago: `[0:24.5]` (médio) e `[0:29.4]`
+(forte). Acorde de fundo: **ré menor**.
 
 ---
 
 ## Cena 4 — A neblina e o compasso
-*(capítulo 4)* · **Duração:** 38 s · **Céu:** neblina · **Narrador:** Filho 3
+*(capítulo 4)* · **Duração:** 38 s · **Céu:** tempestade → neblina
 
 ### Narração
 - `[0:02]` Até que, em certo momento, o navio pediu uma pausa.
@@ -255,10 +271,12 @@ Ondas 0.55, com colisões acentuadas. Motor sobe para 0.2 e fica irregular.
   cuidado.
 
 ### Imagem
-A cena **perde a cor**: saturação cai, o azul vira cinza-esverdeado. Bancos de
-neblina entram pela frente e por trás do navio, encobrindo o horizonte. Em
-close, uma **bússola** gira sem encontrar o norte. Ao longe, a primeira piscada
-do farol.
+A cena começa ainda **debaixo da tempestade** — chuva, céu chumbo, um último
+relâmpago em `[0:02]`. A chuva vai embora por volta de `[0:05]` e, no lugar
+dela, a cena **perde a cor**: saturação cai, o azul vira cinza-esverdeado.
+Bancos de neblina entram pela frente e por trás do navio, encobrindo o
+horizonte. Em close, uma **bússola** gira sem encontrar o norte. Ao longe, a
+primeira piscada do farol.
 
 ### Câmera
 Freia até quase parar: `1560 300 1500 844` → `2180 330 1350 760`. Micro-tremor
@@ -267,6 +285,9 @@ constante (±2 px) durante o trecho do motor. Em `[0:15]`, corte suave para um
 `[0:22]`.
 
 ### Animação
+- **Chuva:** ainda caindo na abertura da cena, some em `[0:05]`.
+- **Relâmpago:** o último, em `[0:02]`, com trovão em `[0:02.4]`.
+- **Ondas:** amplitude cai de 42 px para 16 px — o mar se aquieta.
 - **Neblina:** três bancos com opacidade 0 → 0.62, deslizando em velocidades
   diferentes; desfoque aplicado às camadas de trás.
 - **Saturação** da cena inteira cai para 40 % via filtro CSS.
@@ -277,13 +298,15 @@ constante (±2 px) durante o trecho do motor. Em `[0:15]`, corte suave para um
 - **Batimento cardíaco visual:** uma vinheta escura pulsa duas vezes em `[0:18]`.
 
 ### Som
-Ondas caem para 0.2, abafadas (filtro passa-baixa). Vento sobe para 0.3. O motor
-falha e silencia. Sino de névoa, distante, em `[0:20]` e `[0:28]`.
+Começa com chuva (0.35) e vento forte (0.40); a chuva sai em `[0:06]`.
+Ondas caem para 0.2, abafadas (filtro passa-baixa). O motor falha e silencia.
+Sino de névoa, distante, em `[0:20]` e `[0:28]`.
+Acorde de fundo: **lá menor grave** — o momento mais tenso do filme.
 
 ---
 
 ## Cena 5 — O porto cheio de amor
-*(capítulo 5)* · **Duração:** 36 s · **Céu:** tarde · **Narrador:** Filho 4
+*(capítulo 5)* · **Duração:** 36 s · **Céu:** tarde
 
 ### Narração
 - `[0:02]` Quando o Capitão voltou para casa, encontrou o porto cheio de amor.
@@ -298,28 +321,43 @@ A neblina se rasga e a cor volta de uma vez: luz quente de fim de tarde. À
 direita aparece o **cais**, com lanternas acesas e dez silhuetas acenando. A
 ilha reaparece atrás. É a cena mais luminosa do filme até aqui.
 
+**Quem está no cais** (da esquerda para a direita):
+
+| Figura | Como aparece |
+|--------|--------------|
+| Esposa | vestido, cabelo comprido, coral |
+| 3 filhos | altura de adulto, azul |
+| 1 filha | vestido e cabelo comprido, verde-água |
+| 3 noras | vestido, tons de rosa e roxo |
+| Neto (18 anos) | altura de adulto, azul claro |
+| Neta (1 ano) | bem pequenina, cabeça grande, aceno rápido e curtinho |
+
 ### Câmera
 Panorâmica ampla e generosa, revelando o porto: `2180 330 1350 760` →
 `2900 250 1700 956`. Movimento com `easeOutCubic` — começa firme e desacelera na
 chegada, como quem enfim avista a casa.
 
 ### Animação
-- **Saturação** volta de 35 % para 100 % em 3 s.
+- **Saturação** volta de 40 % para 100 % em 3 s.
 - **Neblina** sai por baixo, dissipando.
 - As **silhuetas entram em ondas**, sincronizadas com a narração:
-  1 esposa `[0:09]` → 4 filhos `[0:16]` → 3 noras `[0:21]` → 2 netos `[0:26]`.
-  Cada grupo aparece com um pequeno salto elástico e começa a acenar.
-- **Acenos:** braço girando ±25°, com fases diferentes por pessoa.
+  esposa `[0:09]` → 3 filhos e a filha `[0:16]` → 3 noras `[0:21]` →
+  neto e neta `[0:26]`. Cada grupo aparece com um pequeno salto elástico e
+  começa a acenar.
+- **Acenos:** braço girando ±26°, com fases diferentes por pessoa; a neta de
+  1 ano acena mais rápido e com amplitude maior.
 - **Lanternas:** acendem em cascata da esquerda para a direita.
 - **Corações** pequenos sobem do cais e se dissolvem.
 
 ### Som
-Ondas voltam a 0.4, claras. Vento cai. Gaivotas. Um acorde quente entra ao fundo.
+Ondas voltam a 0.4, claras. Vento cai. Gaivotas e **pássaros** em `[0:06]`.
+Sino em `[0:30]`. O acorde abre de **fá maior** para **dó maior** — o momento
+em que a trilha respira.
 
 ---
 
 ## Cena 6 — O pedido da família
-*(capítulo 6)* · **Duração:** 32 s · **Céu:** fim de tarde · **Narrador:** Nora 1
+*(capítulo 6)* · **Duração:** 32 s · **Céu:** fim de tarde
 
 ### Narração
 - `[0:02]` Ninguém ali queria ver o Capitão correndo sem parar, gastando todas
@@ -350,7 +388,7 @@ Ambiente calmo (0.3). Uma nota grave sustentada sob a frase do pedido.
 ---
 
 ## Cena 7 — O mapa do bom cuidado
-*(capítulo 7)* · **Duração:** 36 s · **Céu:** pôr do sol · **Narrador:** Nora 2
+*(capítulo 7)* · **Duração:** 36 s · **Céu:** pôr do sol
 
 ### Narração
 - `[0:03]` *"Dormir um pouco mais não é fraqueza. É reparo."*
@@ -383,7 +421,7 @@ Ondas 0.3. Papel/pergaminho a cada marco. Sino suave no quinto conselho.
 ---
 
 ## Cena 8 — Continue sendo você
-*(capítulo 8)* · **Duração:** 34 s · **Céu:** crepúsculo → noite estrelada · **Narrador:** Nora 3
+*(capítulo 8)* · **Duração:** 34 s · **Céu:** crepúsculo → noite estrelada
 
 ### Narração
 - `[0:02]` No fim das contas, o pedido não é para que ele mude quem é.
@@ -417,7 +455,7 @@ Vento sobe leve (0.2). Um brilho cristalino a cada estrela.
 ---
 
 ## Cena 9 — Só existe um Capitão Coração
-*(capítulo 9)* · **Duração:** 40 s · **Céu:** noite → primeira luz · **Narrador:** Os dois netos
+*(capítulo 9)* · **Duração:** 40 s · **Céu:** noite → primeira luz
 
 ### Narração
 - `[0:02]` Você transforma lugares em encontros.
@@ -452,7 +490,8 @@ Recua para o plano mais amplo do filme, abraçando céu, mar e porto:
 
 ### Som
 Batimento cardíaco (0.25) entra em `[0:19]` e sustenta até o fim. Ondas calmas.
-Tudo desce suavemente nos últimos 4 s.
+Em `[0:34]` o acorde vira **sol maior** e entram **pássaros** — é o amanhecer
+chegando. Tudo desce suavemente nos últimos 4 s.
 
 ---
 
@@ -466,9 +505,8 @@ Tudo desce suavemente nos últimos 4 s.
 
 ### Imagem
 Plano fixo e sereno do porto ao amanhecer, com o navio atracado e a família
-reunida no cais. Sobre ele, a assinatura da família e, logo abaixo, a **galeria
-de fotos reais** — as mesmas da pasta `fotos/`. Dois botões: *ver novamente* e
-*início*.
+reunida no cais. Sobre esse fundo passam as **fotos reais da família**, uma de
+cada vez.
 
 ### Câmera
 Parada em `2700 120 2000 1125`, com uma respiração muito lenta (zoom de 1 % em
@@ -476,37 +514,105 @@ Parada em `2700 120 2000 1125`, com uma respiração muito lenta (zoom de 1 % em
 
 ### Animação
 - A constelação-coração continua pulsando, discreta, atrás do conteúdo.
-- As fotos entram em cascata, com leve rotação alternada.
 - Lanternas do cais oscilam.
 
 ### Som
-Ambiente baixo (0.15), ondas calmas, sem batimento.
+Ambiente baixo (0.15), ondas calmas, sem batimento. Acorde de **fá maior** e
+pássaros em `[0:01]`.
+
+---
+
+## Encerramento — As fotos da família
+
+Depois da última cena, o filme entra no **álbum**. Como o resultado é gravado em
+vídeo, tudo acontece sozinho, sem clique nenhum.
+
+| | |
+|---|---|
+| Fonte | `window.CAPITAO_FOTOS` — a mesma lista automática da pasta `fotos/` |
+| Ritmo | **4 segundos por foto** |
+| Duração | 18 fotos hoje ≈ 1 min 12 s (cresce sozinho se entrarem fotos novas) |
+| Legendas | **nenhuma** — só a imagem |
+| Transição | fade de 1,2 s cruzando com o zoom lento da foto seguinte |
+| Movimento | *Ken Burns*: zoom de 1.00→1.10 (ou o inverso), em 4 variações que se alternam |
+| Fundo | o porto ao amanhecer continua vivo por trás |
+| Ao terminar | todas as fotos aparecem juntas em **grade**, e só então surgem a assinatura da família e os botões |
+
+Com `prefers-reduced-motion`, as fotos trocam sem zoom e sem fade.
 
 ---
 
 # Apêndice A — Correspondência com a história original
 
-| Cena | Capítulo original | Narrador |
-|------|-------------------|----------|
-| 0    | — (criada para o filme) | — |
-| 1    | 1. Um homem muito querido | Esposa |
-| 2    | 2. O navio valente | Filho 1 |
-| 3    | 3. A viagem do jeito dele | Filho 2 |
-| 4    | 4. A neblina e o compasso | Filho 3 |
-| 5    | 5. O porto cheio de amor | Filho 4 |
-| 6    | 6. O pedido da família | Nora 1 |
-| 7    | 7. O mapa do bom cuidado | Nora 2 |
-| 8    | 8. Continue sendo você | Nora 3 |
-| 9    | 9. Só existe um Capitão Coração | Os dois netos |
-| 10   | — (assinatura + fotos) | — |
+| Cena | Capítulo original |
+|------|-------------------|
+| 0    | — (criada para o filme) |
+| 1    | 1. Um homem muito querido |
+| 2    | 2. O navio valente |
+| 3    | 3. A viagem do jeito dele |
+| 4    | 4. A neblina e o compasso |
+| 5    | 5. O porto cheio de amor |
+| 6    | 6. O pedido da família |
+| 7    | 7. O mapa do bom cuidado |
+| 8    | 8. Continue sendo você |
+| 9    | 9. Só existe um Capitão Coração |
+| 10   | — (assinatura + fotos) |
 
 > O texto dos 9 capítulos originais continua intacto em `assets/js/story.js` e é
 > o que as versões 1 a 7 exibem. A narração ampliada acima vive apenas na
 > Versão 8.
+>
+> **Os nomes dos narradores não aparecem em tela.** A história é contada em uma
+> voz só — a da família inteira.
 
 ---
 
-# Apêndice B — Inventário de elementos SVG
+# Apêndice B — A trilha
+
+Tudo é sintetizado no navegador (Web Audio). **Não existe nenhum arquivo de
+áudio no repositório** e o som começa **desligado** — é preciso apertar 🔊
+(ou a tecla `M`).
+
+### Camadas contínuas
+
+| Camada | Como é feita |
+|--------|--------------|
+| Ondas | ruído rosa em passa-baixa, com um LFO lento fazendo o mar "respirar" |
+| Vento | ruído em passa-banda agudo |
+| Motor | oscilador dente-de-serra grave, filtrado |
+| Chuva | ruído em passa-alta, denso |
+| Acorde | 3 a 4 osciladores com ataque lento — é o que dá o humor da cena |
+
+### O acorde muda com a história
+
+| Cena | Acorde | Humor |
+|------|--------|-------|
+| 0 Abertura | lá menor | mistério, mar de madrugada |
+| 1 Um homem muito querido | fá maior | acolhedor |
+| 2 O navio valente | dó maior | firme |
+| 3 A viagem do jeito dele | ré menor | inquieto |
+| 4 A neblina e o compasso | lá menor grave | tensão |
+| 5 O porto cheio de amor | fá → dó maior | alívio, luz |
+| 6 O pedido da família | ré menor 7 | ternura |
+| 7 O mapa do bom cuidado | si bemol maior | esperança |
+| 8 Continue sendo você | lá menor 7 → fá | noite serena |
+| 9 Só existe um Capitão | dó maior → sol maior | amplo, emocionado |
+| 10 Epílogo | fá maior | descanso |
+
+### Sons pontuais
+
+| Som | Onde aparece |
+|-----|--------------|
+| Sino de boia / névoa | cenas 2, 4, 5, 7 e 8 |
+| Gaivota | cenas 1 e 5 |
+| Trovão | cena 3 (duas vezes) e cena 4 |
+| Pássaros | amanhecer da cena 1, chegada da 5, alvorada da 9 e epílogo |
+| Nota grave sustentada | o pedido da família, cena 6 |
+| Batimento cardíaco | cena 9, a partir de `[0:19]` |
+
+---
+
+# Apêndice C — Inventário de elementos SVG
 
 | Elemento | `id` / classe | Notas de construção |
 |----------|---------------|---------------------|
@@ -518,12 +624,14 @@ Ambiente baixo (0.15), ondas calmas, sem batimento.
 | Ilha | `#ilha` | morro + 3 palmeiras (tronco curvo + folhas) |
 | Farol | `#farol` | torre listrada, casa, lanterna, feixe em `<polygon>` rotativo |
 | Cais | `#cais` | estacas, tábuas, 6 lanternas |
-| Família | `#familia` | 10 `<g class="pessoa">` com cabeça, corpo e braço animável |
+| Família | `#familia` | 10 `<g class="pessoa">`: esposa, 3 filhos, 1 filha, 3 noras, neto (18) e neta (1) |
 | Navio | `#navio` | casco, linha d'água, 6 vigias, cabine, chaminé, mastro, bandeira, coração na proa |
 | Fumaça | `#fumaca` | círculos reciclados, sobem e dissipam |
 | Esteira | `#esteira` | `path` com opacidade em degradê |
 | Ondas | `#onda-fundo/medio/frente` | `path` senoidal recalculado a cada quadro |
 | Neblina | `.banco-neblina` | elipses muito desfocadas, três velocidades |
+| Chuva | `#chuva` | riscos inclinados recicladas, densidade controlada pelo roteiro |
+| Relâmpago | `#relampago` | clarão branco em tela cheia (fora do SVG) |
 | Bússola | `#bussola` | círculo, rosa dos ventos, agulha rotativa |
 | Mapa | `#mapa` | pergaminho, linhas de rumo, 5 marcos |
 | Coração-constelação | `#constelacao` | 7 estrelas + linhas ligando |
@@ -531,7 +639,7 @@ Ambiente baixo (0.15), ondas calmas, sem batimento.
 
 ---
 
-# Apêndice C — Comandos e acessibilidade
+# Apêndice D — Comandos e acessibilidade
 
 | Ação | Teclado | Botão |
 |------|---------|-------|
@@ -548,3 +656,14 @@ Ambiente baixo (0.15), ondas calmas, sem batimento.
   deslizar — mas a história continua avançando normalmente.
 - O áudio começa **desligado** e só é criado após um clique, respeitando a
   política de autoplay dos navegadores.
+
+### Modo de gravação
+
+Abrindo com **`?video=1`** (`versao8/index.html?video=1`) o filme roda limpo,
+pronto para ser gravado em vídeo: somem o player, a barra de progresso, o
+rótulo do capítulo, o contador de fotos e as dicas de teclado. Só continua na
+tela o botão **▶ Começar o filme** — o clique é necessário para o navegador
+liberar o som.
+
+As teclas continuam funcionando durante a gravação, caso seja preciso corrigir
+alguma coisa no meio do caminho.

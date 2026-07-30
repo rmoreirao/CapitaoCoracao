@@ -16,6 +16,8 @@
   var D = {};
   var iniciado = false;
   var timerPlayer = null;
+  /* ?video=1 → modo de gravação: sem player, sem barra, sem rótulos */
+  var modoVideo = /[?&]video=1\b/.test(window.location.search);
 
   /* ═════════ legendas ═════════ */
 
@@ -23,7 +25,6 @@
     var zona = D.legenda;
     zona.textContent = '';
     if (!beat) return;
-
     var p = document.createElement('p');
     p.className = 'fala' + (beat.estilo ? ' e-' + beat.estilo : '');
 
@@ -42,7 +43,6 @@
     }
 
     zona.appendChild(p);
-    D.narrador.textContent = cena && cena.narrador ? cena.narrador : '';
   }
 
   /* ═════════ cena ═════════ */
@@ -51,10 +51,8 @@
     D.rotulo.textContent = cena.capitulo
       ? 'Capítulo ' + cena.capitulo + ' · ' + cena.titulo
       : cena.titulo;
-    D.narrador.textContent = cena.narrador || '';
     D.filme.setAttribute('data-cena', cena.id);
-    anunciar('Cena ' + (idx + 1) + ' de ' + R.cenas.length + ': ' + cena.titulo +
-             (cena.narrador ? '. Narração: ' + cena.narrador : ''));
+    anunciar('Cena ' + (idx + 1) + ' de ' + R.cenas.length + ': ' + cena.titulo);
   }
 
   function anunciar(msg) {
@@ -92,11 +90,13 @@
     D.telaFinal.hidden = false;
     requestAnimationFrame(function () { D.telaFinal.classList.add('visivel'); });
     D.assinatura.textContent = R.assinatura;
-    if (window.renderGaleriaFamilia) window.renderGaleriaFamilia('galeria-final');
     D.legendaZona.classList.add('oculta');
     D.player.classList.add('oculto');
     D.filme.classList.add('terminou');
-    anunciar('Fim do filme. Chegamos ao porto do amor.');
+    anunciar('Fim da história. Agora, as fotos da família.');
+    window.Slideshow.iniciar(function () {
+      anunciar('Chegamos ao porto do amor.');
+    });
   }
 
   /* ═════════ controles ═════════ */
@@ -110,6 +110,7 @@
   }
 
   function mostrarPlayer(fixo) {
+    if (modoVideo) return;
     D.player.classList.remove('oculto');
     clearTimeout(timerPlayer);
     if (!fixo) esconderPlayerEmBreve();
@@ -117,6 +118,7 @@
 
   function esconderPlayerEmBreve() {
     clearTimeout(timerPlayer);
+    if (modoVideo) { D.player.classList.add('oculto'); return; }
     timerPlayer = setTimeout(function () {
       if (window.Motor.estado.rodando && !D.filme.classList.contains('terminou')) {
         D.player.classList.add('oculto');
@@ -157,6 +159,7 @@
   }
 
   function reiniciar() {
+    window.Slideshow.parar();
     D.telaFinal.classList.remove('visivel');
     D.telaFinal.hidden = true;
     D.filme.classList.remove('terminou');
@@ -166,16 +169,21 @@
     sincronizarPlay();
   }
 
+  /* volta da tela final para o filme (ao buscar na barra) */
+  function sairDoFinal() {
+    if (!D.filme.classList.contains('terminou')) return;
+    window.Slideshow.parar();
+    D.telaFinal.classList.remove('visivel');
+    D.telaFinal.hidden = true;
+    D.filme.classList.remove('terminou');
+    D.legendaZona.classList.remove('oculta');
+  }
+
   function buscarPelaBarra(ev) {
     var r = D.barra.getBoundingClientRect();
     var x = (ev.clientX != null ? ev.clientX : ev.touches[0].clientX) - r.left;
     var k = Math.max(0, Math.min(1, x / r.width));
-    if (D.filme.classList.contains('terminou')) {
-      D.telaFinal.classList.remove('visivel');
-      D.telaFinal.hidden = true;
-      D.filme.classList.remove('terminou');
-      D.legendaZona.classList.remove('oculta');
-    }
+    sairDoFinal();
     window.Motor.buscar(k * window.Motor.total);
     sincronizarPlay();
   }
@@ -194,8 +202,8 @@
       case ' ':
         if (alvo && alvo.tagName === 'BUTTON') return;
         ev.preventDefault(); alternarPlay(); break;
-      case 'ArrowRight': ev.preventDefault(); window.Motor.proxima(); sincronizarPlay(); mostrarPlayer(); break;
-      case 'ArrowLeft':  ev.preventDefault(); window.Motor.anterior(); sincronizarPlay(); mostrarPlayer(); break;
+      case 'ArrowRight': ev.preventDefault(); sairDoFinal(); window.Motor.proxima(); sincronizarPlay(); mostrarPlayer(); break;
+      case 'ArrowLeft':  ev.preventDefault(); sairDoFinal(); window.Motor.anterior(); sincronizarPlay(); mostrarPlayer(); break;
       case 'f': case 'F': telaCheia(); break;
       case 'm': case 'M': alternarSom(); break;
     }
@@ -208,7 +216,6 @@
       filme: el('filme'),
       legendaZona: el('legenda-zona'),
       legenda: el('legenda'),
-      narrador: el('cena-narrador'),
       rotulo: el('cena-rotulo'),
       telaAbertura: el('tela-abertura'),
       telaFinal: el('tela-final'),
@@ -225,7 +232,13 @@
 
     window.Cenario.init();
     window.Motor.init();
+    window.Slideshow.init();
     montarMarcas();
+
+    if (modoVideo) {
+      D.filme.classList.add('modo-video');
+      D.player.classList.add('oculto');
+    }
 
     window.Motor.on.beat = mostrarBeat;
     window.Motor.on.cena = aoMudarCena;
@@ -237,8 +250,8 @@
     el('btn-iniciar').addEventListener('click', iniciarFilme);
     el('btn-replay').addEventListener('click', reiniciar);
     D.btnPlay.addEventListener('click', alternarPlay);
-    el('btn-proximo').addEventListener('click', function () { window.Motor.proxima(); sincronizarPlay(); mostrarPlayer(); });
-    el('btn-anterior').addEventListener('click', function () { window.Motor.anterior(); sincronizarPlay(); mostrarPlayer(); });
+    el('btn-proximo').addEventListener('click', function () { sairDoFinal(); window.Motor.proxima(); sincronizarPlay(); mostrarPlayer(); });
+    el('btn-anterior').addEventListener('click', function () { sairDoFinal(); window.Motor.anterior(); sincronizarPlay(); mostrarPlayer(); });
     el('btn-tela').addEventListener('click', telaCheia);
     D.btnSom.addEventListener('click', alternarSom);
     if (!window.AudioFilme.disponivel()) D.btnSom.hidden = true;

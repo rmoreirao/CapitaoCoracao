@@ -259,6 +259,7 @@
           <ellipse class="banco nb3" cx="2380" cy="720" rx="820" ry="130" fill="#f2f6f7"/>
         </g>
         <g id="gaivotas"></g>
+        <g id="chuva"></g>
         <circle id="onda-luz" cx="3720" cy="190" r="0" fill="url(#grad-onda-luz)" opacity="0"/>
 
         <!-- inserto: bússola -->
@@ -307,13 +308,13 @@
 
   <!-- ══════════════════ CAMADAS DE TELA ══════════════════ -->
   <div class="vinheta" id="vinheta" aria-hidden="true"></div>
+  <div class="relampago" id="relampago" aria-hidden="true"></div>
   <div class="letterbox topo" aria-hidden="true"></div>
   <div class="letterbox base" aria-hidden="true"></div>
   <div class="fade" id="fade" aria-hidden="true"></div>
 
   <!-- legendas -->
   <div class="legenda-zona" id="legenda-zona">
-    <p class="cena-narrador" id="cena-narrador" aria-hidden="true"></p>
     <div class="legenda" id="legenda" aria-live="polite" aria-atomic="true"></div>
   </div>
 
@@ -334,11 +335,20 @@
   <!-- ── final ── -->
   <section class="tela tela-final" id="tela-final" hidden>
     <div class="final">
-      <div class="final-emblema" aria-hidden="true">⚓</div>
-      <h2 class="final-titulo">Chegamos ao porto do amor</h2>
-      <p class="final-assinatura" id="final-assinatura"></p>
-      <div id="galeria-final"></div>
-      <div class="final-botoes">
+      <div class="final-fecho" id="final-fecho">
+        <div class="final-emblema" aria-hidden="true">⚓</div>
+        <h2 class="final-titulo">Chegamos ao porto do amor</h2>
+        <p class="final-assinatura" id="final-assinatura"></p>
+      </div>
+
+      <!-- as fotos passam uma a uma e depois aparecem todas em grade -->
+      <div class="final-fotos" id="final-fotos">
+        <div class="foto-palco-area" id="foto-palco"></div>
+        <p class="foto-contador" id="foto-contador" aria-hidden="true"></p>
+        <div class="foto-grade" id="foto-grade"></div>
+      </div>
+
+      <div class="final-botoes" id="final-botoes">
         <button class="botao-filme" id="btn-replay">🔁 Ver novamente</button>
         <a class="botao-filme secundario" href="roteiro.md">🎬 Ler o roteiro</a>
         <a class="botao-filme secundario" href="../index.html">🏠 Início</a>
@@ -368,11 +378,11 @@
 
 <script src="../assets/js/story.js"></script>
 <script src="../fotos/fotos.js"></script>
-<script src="../assets/js/familia.js"></script>
 <script src="roteiro.js"></script>
 <script src="cenario.js"></script>
 <script src="motor.js"></script>
 <script src="audio.js"></script>
+<script src="slideshow.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

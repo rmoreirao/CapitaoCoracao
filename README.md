@@ -25,13 +25,13 @@ que mais combina com o momento:
 | 🗺️ **Mapa da Grande Viagem** | [`versao5/`](versao5/index.html) | Uma rota interativa por nove portos, com o barco navegando entre as memórias. |
 | 🌅 **Mar de Memórias** | [`versao6/`](versao6/index.html) | Uma narrativa vertical com navio, ondas, farol, estrelas e céu em movimento. |
 | 🎥 **Jornada Cinematográfica** | [`versao7/`](versao7/index.html) | Um filme automático: a história avança sozinha do amanhecer ao porto, com céu animado, navio em movimento e texto que aparece como legendas cinematográficas. |
-| 🎞️ **O Filme** | [`versao8/`](versao8/index.html) | A história **totalmente animada**: cenário desenhado em SVG, câmera que viaja do mar aberto até o porto e cada cena com sua própria coreografia. Roteiro em [`versao8/roteiro.md`](versao8/roteiro.md). |
+| 🎞️ **O Filme** | [`versao8/`](versao8/index.html) | A história **totalmente animada**: cenário desenhado em SVG, câmera que viaja do mar aberto até o porto, trilha que muda a cada cena e as fotos da família passando uma a uma no final. Roteiro em [`versao8/roteiro.md`](versao8/roteiro.md). |
 
 A página inicial [`index.html`](index.html) reúne as oito versões.
 
 ## 📸 Fotos da família
 
-Todas as oito versões terminam com uma **galeria automática** montada a partir do
+As versões 1 a 7 terminam com uma **galeria automática** montada a partir do
 conteúdo da pasta [`fotos/`](fotos/). Para atualizar as fotos do site, basta
 adicionar ou remover arquivos nessa pasta (nomeados como `pessoa-01.jpg`) e dar
 `push`: o workflow regera o manifesto `fotos/fotos.js` e republica o site.
@@ -40,6 +40,9 @@ Nenhuma edição de código é necessária — veja [`fotos/README.md`](fotos/RE
 A legenda de cada foto vem do prefixo do nome do arquivo (`mae-02.jpg` → *Mãe*)
 e as imagens são exibidas na proporção original, com carregamento preguiçoso
 (`loading="lazy"`).
+
+Na **Versão 8** as mesmas fotos passam **uma a uma**, como um álbum em vídeo, e
+sem legenda.
 
 ## 🚀 Como publicar no GitHub Pages
 
@@ -129,7 +132,8 @@ amanhecer ao porto, sem que o visitante precise rolar ou clicar.
 A Versão 8 é a história **totalmente animada**. Enquanto a Versão 7 monta o
 cenário com emojis em camadas, aqui existe **um mundo desenhado em SVG**
 (4000 × 1200) por onde a câmera viaja de ponta a ponta — do mar aberto ao porto
-— sem cortes bruscos. São **11 cenas**, cerca de 5 minutos.
+— sem cortes bruscos. São **11 cenas** (~6 min) e, no fim, as **fotos da
+família passando uma a uma**.
 
 O roteiro completo, cena a cena, está em
 [`versao8/roteiro.md`](versao8/roteiro.md): narração, imagem, movimento de
@@ -143,7 +147,8 @@ câmera, coreografia das animações e som.
 | Câmera | fixa | `viewBox` animado: panorâmica, zoom, inclinação e parallax |
 | Relógio | cadeia de `setTimeout` | relógio próprio em `requestAnimationFrame` (busca e pausa precisas) |
 | Texto | os 9 capítulos originais | narração ampliada, exclusiva desta versão |
-| Som | — | ambiente sintetizado no navegador (ondas, vento, motor, sino, batimento) |
+| Som | — | trilha sintetizada que **muda de humor a cada cena**, com trovão, chuva, pássaros e sinos |
+| Fotos | galeria em grade | passam **uma a uma**, sem legenda, e só no fim aparecem todas juntas |
 
 ### Controles
 
@@ -156,7 +161,15 @@ câmera, coreografia das animações e som.
 | Tela cheia | `F` | ⛶ |
 
 O som começa **desligado** (política de autoplay dos navegadores) e é gerado na
-hora com Web Audio — não há nenhum arquivo de áudio no repositório.
+hora com Web Audio — não há nenhum arquivo de áudio no repositório. O acorde de
+fundo acompanha a história: tenso na tempestade e na neblina, luminoso na
+chegada ao porto.
+
+### 🎥 Gravando em vídeo
+
+Abra **[`versao8/index.html?video=1`](versao8/index.html?video=1)**: o filme roda
+sem player, sem barra de progresso e sem rótulos — só a história. Basta apertar
+**▶ Começar o filme** (o clique libera o som) e gravar a tela.
 
 ### Arquivos
 
@@ -166,13 +179,16 @@ versao8/
   roteiro.js   # o mesmo roteiro em dados: cenas, beats, câmera, som
   index.html   # o mundo SVG + a interface do player
   motor.js     # relógio, timeline, câmera e interpolação de cores
-  cenario.js   # ondas, estrelas, nuvens, gaivotas, família, partículas
-  audio.js     # ambiente sonoro sintetizado
+  cenario.js   # ondas, estrelas, nuvens, gaivotas, chuva, família, partículas
+  audio.js     # trilha e efeitos sintetizados
+  slideshow.js # as fotos da família, uma a uma
   script.js    # orquestração e controles
   style.css    # legendas cinematográficas, telas e player
 ```
 
 > Para mudar o texto ou o ritmo do filme, edite `roteiro.md` e reflita a
 > alteração em `roteiro.js` — nenhuma animação precisa ser reescrita.
+> As fotos do final vêm da pasta `fotos/`: acrescentar uma foto lá já a coloca
+> no filme.
 
 Feito com muito carinho. 🌊⚓

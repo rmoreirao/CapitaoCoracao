@@ -39,6 +39,7 @@ window.Cenario = (function () {
     amplitude: 18, amplitudeAlvo: 18,
     fumaca: 1, fumacaProx: 0,
     respingos: 0, respingoProx: 0,
+    chuva: 0, chuvaProx: 0,
     neblina: 0, neblinaAlvo: 0,
     estrelas: 1, estrelasAlvo: 1,
     farol: 0, farolAlvo: 0,
@@ -52,7 +53,7 @@ window.Cenario = (function () {
     motorFalha: 0
   };
 
-  var particulas = { fumaca: [], respingos: [], coracoes: [], risadas: [] };
+  var particulas = { fumaca: [], respingos: [], coracoes: [], risadas: [], chuva: [] };
   var nuvens = [], gaivotas = [], estrelasNos = [], reflexos = [];
   var familiaNos = [], constelacaoEstrelas = [], marcosNos = [];
   var ultimoCtx = null;
@@ -131,38 +132,107 @@ window.Cenario = (function () {
     }
   }
 
+  /* A família no cais, pessoa a pessoa.
+     alt = altura relativa · vestido = silhueta de vestido · cabelo = cabelo
+     comprido · bebe = proporção de bebê (cabeça grande, corpo curto) */
   var GRUPOS = [
-    { grupo: 'esposa', n: 1, cor: '#e8544a', altura: 1.00 },
-    { grupo: 'filhos', n: 4, cor: '#2b6ca8', altura: 1.00 },
-    { grupo: 'noras',  n: 3, cor: '#c05fa0', altura: 0.96 },
-    { grupo: 'netos',  n: 2, cor: '#f0a63c', altura: 0.66 }
+    { grupo: 'esposa', cor: '#e8544a', alt: 1.00, vestido: true,  cabelo: true },
+
+    { grupo: 'filhos', cor: '#2b6ca8', alt: 1.00 },
+    { grupo: 'filhos', cor: '#2b6ca8', alt: 0.99 },
+    { grupo: 'filhos', cor: '#2f7ab8', alt: 1.01 },
+    /* a filha */
+    { grupo: 'filhos', cor: '#2aa79b', alt: 0.97, vestido: true,  cabelo: true },
+
+    { grupo: 'noras',  cor: '#c05fa0', alt: 0.96, vestido: true,  cabelo: true },
+    { grupo: 'noras',  cor: '#a95fc0', alt: 0.95, vestido: true,  cabelo: true },
+    { grupo: 'noras',  cor: '#d16aa8', alt: 0.97, vestido: true,  cabelo: true },
+
+    /* o neto de 18 anos: já do tamanho dos adultos */
+    { grupo: 'netos',  cor: '#5aa9e6', alt: 0.99 },
+    /* a neta de 1 ano */
+    { grupo: 'netos',  cor: '#f0a63c', alt: 0.52, vestido: true, bebe: true }
   ];
 
+  /* desenha uma pessoa (origem nos pés) */
+  function desenharPessoa(p, cfg) {
+    var cabecaR = cfg.bebe ? 17 : 12;
+    var corpoH  = cfg.bebe ? 30 : 44;
+    var ombro   = cfg.bebe ? -24 : -40;
+    var cabecaY = -(corpoH + cabecaR + (cfg.bebe ? 2 : 0));
+    var meio    = cfg.bebe ? 11 : 15;
+    var topo    = cfg.bebe ? 8 : 7;
+    var alcance = cfg.bebe ? 13 : 20;
+
+    /* corpo: vestido abre na base, calça é reta */
+    var base = cfg.vestido ? meio + (cfg.bebe ? 5 : 7) : meio - 2;
+    p.appendChild(cria('path', {
+      d: 'M' + (-base) + ',0 L' + (-topo) + ',' + corpoH * -1 +
+         ' L' + topo + ',' + corpoH * -1 + ' L' + base + ',0 Z',
+      fill: cfg.cor
+    }));
+    /* braço parado */
+    p.appendChild(cria('path', {
+      d: 'M0,' + ombro + ' L' + (-alcance + 2) + ',' + (ombro + 20),
+      stroke: cfg.cor, 'stroke-width': cfg.bebe ? 6 : 8, 'stroke-linecap': 'round', fill: 'none'
+    }));
+    /* braço que acena */
+    var braco = cria('g', { class: 'braco', transform: 'translate(0 ' + ombro + ')' });
+    braco.appendChild(cria('path', {
+      d: 'M0,0 L' + alcance + ',' + (cfg.bebe ? -16 : -24),
+      stroke: cfg.cor, 'stroke-width': cfg.bebe ? 6 : 8, 'stroke-linecap': 'round', fill: 'none'
+    }));
+    p.appendChild(braco);
+    /* cabelo comprido por trás (não se aplica ao bebê) */
+    if (cfg.cabelo && !cfg.bebe) {
+      p.appendChild(cria('path', {
+        d: 'M' + (-cabecaR) + ',' + (cabecaY - 2) +
+           ' q-' + (cabecaR * 0.5) + ',' + (cabecaR * 1.9) + ' ' + (cabecaR * 0.28) + ',' + (cabecaR * 2.2) +
+           ' L' + (cabecaR * 0.72) + ',' + (cabecaY + cabecaR * 2.2) +
+           ' q' + (cabecaR * 0.78) + ',-' + (cabecaR * 0.3) + ' ' + (cabecaR * 0.28) + ',-' + (cabecaR * 2.2) + ' Z',
+        fill: '#3a2b1e'
+      }));
+    }
+    p.appendChild(cria('circle', { cx: 0, cy: cabecaY, r: cabecaR, fill: '#f5c9a2' }));
+
+    if (cfg.bebe) {
+      /* bebê: só um cachinho no alto da cabeça */
+      p.appendChild(cria('path', {
+        d: 'M-3,' + (cabecaY - cabecaR + 2) + ' q3,-11 9,-4 q-4,-2 -6,3',
+        fill: 'none', stroke: '#3a2b1e', 'stroke-width': 4, 'stroke-linecap': 'round'
+      }));
+    } else {
+      /* franja */
+      p.appendChild(cria('path', {
+        d: 'M' + (-cabecaR) + ',' + (cabecaY - cabecaR * 0.34) +
+           ' q' + cabecaR + ',-' + (cabecaR * 1.2) + ' ' + (cabecaR * 2) + ',0' +
+           ' q-' + cabecaR + ',-' + (cabecaR * 0.6) + ' -' + (cabecaR * 2) + ',0 Z',
+        fill: '#3a2b1e'
+      }));
+    }
+    return braco;
+  }
+
   function montarFamilia() {
-    var g = D.familia, x = 3452, i, j;
+    var g = D.familia, x = 3452, i;
     for (i = 0; i < GRUPOS.length; i++) {
-      var gr = GRUPOS[i];
-      for (j = 0; j < gr.n; j++) {
-        var h = gr.altura;
-        /* o grupo externo guarda a posição no mundo; o interno recebe a
-           animação CSS (transform do CSS sobrescreveria o atributo) */
-        var p = cria('g', {
-          class: 'pessoa', 'data-grupo': gr.grupo,
-          transform: 'translate(' + x + ' 612) scale(' + h + ')', opacity: 0
-        });
-        var corpo = cria('g', { class: 'corpo' });
-        corpo.appendChild(cria('path', { d: 'M-15,0 L-7,-44 L7,-44 L15,0 Z', fill: gr.cor }));
-        corpo.appendChild(cria('path', { d: 'M0,-40 L-19,-20', stroke: gr.cor, 'stroke-width': 8, 'stroke-linecap': 'round', fill: 'none' }));
-        var braco = cria('g', { class: 'braco', transform: 'translate(0 -40)' });
-        braco.appendChild(cria('path', { d: 'M0,0 L20,-24', stroke: gr.cor, 'stroke-width': 8, 'stroke-linecap': 'round', fill: 'none' }));
-        corpo.appendChild(braco);
-        corpo.appendChild(cria('circle', { cx: 0, cy: -56, r: 12, fill: '#f5c9a2' }));
-        corpo.appendChild(cria('path', { d: 'M-12,-60 q12,-14 24,0 q-12,-7 -24,0', fill: '#4a3a2a' }));
-        p.appendChild(corpo);
-        g.appendChild(p);
-        familiaNos.push({ no: p, corpo: corpo, braco: braco, grupo: gr.grupo, fase: aleatorio(0, 6), visivel: false });
-        x += 40;
-      }
+      var cfg = GRUPOS[i];
+      /* o grupo externo guarda a posição no mundo; o interno recebe a
+         animação CSS (transform do CSS sobrescreveria o atributo) */
+      var p = cria('g', {
+        class: 'pessoa', 'data-grupo': cfg.grupo,
+        transform: 'translate(' + x + ' 612) scale(' + cfg.alt + ')', opacity: 0
+      });
+      var corpo = cria('g', { class: 'corpo' });
+      var braco = desenharPessoa(corpo, cfg);
+      p.appendChild(corpo);
+      g.appendChild(p);
+      familiaNos.push({
+        no: p, corpo: corpo, braco: braco, grupo: cfg.grupo,
+        ombro: cfg.bebe ? -24 : -40, ritmo: cfg.bebe ? 4.2 : 3.1,
+        amplitude: cfg.bebe ? 34 : 26, fase: aleatorio(0, 6), visivel: false
+      });
+      x += cfg.bebe ? 30 : 40;
     }
   }
 
@@ -226,7 +296,7 @@ window.Cenario = (function () {
   }
 
   function passoParticulas(dt) {
-    ['fumaca', 'respingos', 'coracoes', 'risadas'].forEach(function (nome) {
+    ['fumaca', 'respingos', 'coracoes', 'risadas', 'chuva'].forEach(function (nome) {
       var lista = particulas[nome], i, p;
       for (i = lista.length - 1; i >= 0; i--) {
         p = lista[i];
@@ -273,8 +343,22 @@ window.Cenario = (function () {
     });
   }
 
-  /* uma risada que sobe do cais e vira estrela */
-  function soltarRisada(indice) {
+  function soltarChuva() {
+    if (!ultimoCtx) return;
+    var g = cria('g', {});
+    g.appendChild(cria('line', {
+      x1: 0, y1: 0, x2: -9, y2: 34,
+      stroke: '#cfe4f0', 'stroke-width': 3, 'stroke-linecap': 'round'
+    }));
+    novaParticula('chuva', g, {
+      x: ultimoCtx.camX + aleatorio(-150, ultimoCtx.camW + 150),
+      y: ultimoCtx.camY - 60,
+      vx: -170, vy: 900, s0: 1, s1: 1, o0: 0.55, o1: 0.35,
+      vida: 0, total: (ultimoCtx.camH + 200) / 900
+    });
+  }
+
+  /* uma risada que sobe do cais e vira estrela */  function soltarRisada(indice) {
     var alvo = constelacaoEstrelas[indice % constelacaoEstrelas.length];
     var g = cria('g', {});
     g.appendChild(cria('circle', { r: 8, fill: '#fff3c4', filter: 'url(#f-brilho)' }));
@@ -322,6 +406,14 @@ window.Cenario = (function () {
     if (st.respingos > 0 && !reduzido && !st.atracado) {
       st.respingoProx -= dt;
       if (st.respingoProx <= 0) { soltarRespingo(); st.respingoProx = aleatorio(0.18, 0.5); }
+    }
+    /* chuva */
+    if (st.chuva > 0 && !reduzido) {
+      st.chuvaProx -= dt;
+      while (st.chuvaProx <= 0) {
+        soltarChuva();
+        st.chuvaProx += 0.028 / Math.max(0.1, st.chuva);
+      }
     }
     passoParticulas(dt);
 
@@ -381,8 +473,8 @@ window.Cenario = (function () {
     /* ── família acenando ── */
     familiaNos.forEach(function (p) {
       if (!p.visivel) return;
-      var a = reduzido ? 0 : Math.sin(t * 3.1 + p.fase) * 26;
-      p.braco.setAttribute('transform', 'translate(0 -40) rotate(' + a.toFixed(1) + ')');
+      var a = reduzido ? 0 : Math.sin(t * p.ritmo + p.fase) * p.amplitude;
+      p.braco.setAttribute('transform', 'translate(0 ' + p.ombro + ') rotate(' + a.toFixed(1) + ')');
     });
 
     /* ── lanternas e reflexos ── */
@@ -437,6 +529,8 @@ window.Cenario = (function () {
       case 'farol':      st.farolAlvo = ev.valor; break;
       case 'fumaca':     st.fumaca = ev.valor; break;
       case 'respingos':  st.respingos = ev.valor; break;
+      case 'chuva':      st.chuva = ev.valor; break;
+      case 'relampago':  relampago(ev.duplo); break;
       case 'vibracao':   st.vibracao = ev.valor; break;
       case 'tremor':     st.tremor = ev.valor; break;
       case 'ondas':      st.amplitudeAlvo = ev.amplitude; break;
@@ -552,6 +646,20 @@ window.Cenario = (function () {
     }, 26);
   }
 
+  function relampago(duplo) {
+    if (reduzido) return;
+    var v = document.getElementById('relampago');
+    if (!v) return;
+    var lampejo = function () {
+      v.classList.remove('acende');
+      /* força o reinício da animação */
+      void v.offsetWidth;
+      v.classList.add('acende');
+    };
+    lampejo();
+    if (duplo) setTimeout(lampejo, 260);
+  }
+
   function varreduraCasco() {
     D.navio.classList.add('varre');
     setTimeout(function () { D.navio.classList.remove('varre'); }, 2200);
@@ -581,11 +689,12 @@ window.Cenario = (function () {
     st.estrelas = st.estrelasAlvo = 1;
     st.farol = st.farolAlvo = 0;
     st.fumaca = 1; st.respingos = 0; st.vibracao = 0; st.motorFalha = 0;
+    st.chuva = 0; st.chuvaProx = 0;
     st.atracado = false; st.batimento = 0; st.ondaLuz = 0;
     st.bussola = 0; st.constelacao = 0; st.navioAfunda = 0; st.navioIncl = 1.5;
     document.documentElement.style.setProperty('--saturacao', 1);
 
-    ['fumaca', 'respingos', 'coracoes', 'risadas'].forEach(function (nome) {
+    ['fumaca', 'respingos', 'coracoes', 'risadas', 'chuva'].forEach(function (nome) {
       particulas[nome].forEach(function (p) { p.no.remove(); });
       particulas[nome] = [];
     });
@@ -633,7 +742,8 @@ window.Cenario = (function () {
       rastroAstro: el('rastro-astro'), neblina: el('neblina'),
       bussola: el('bussola'), bussolaAgulha: el('bussola-agulha'),
       mapa: el('mapa'), mapaMarcos: el('mapa-marcos'), clipRota: el('clip-rota-rect'),
-      constelacao: el('constelacao'), risadas: el('risadas'), ondaLuz: el('onda-luz')
+      constelacao: el('constelacao'), risadas: el('risadas'), ondaLuz: el('onda-luz'),
+      chuva: el('chuva')
     };
     st.farolAlvo = 0;
     montarEstrelas();
