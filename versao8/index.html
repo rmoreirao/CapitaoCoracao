@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O Capitão Coração — O Filme 🎞️</title>
+  <meta name="description" content="A história do Capitão Coração como um filme animado, do mar aberto ao porto do amor.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/common.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="filme" class="filme">
+
+  <!-- ══════════════════ O MUNDO (SVG) ══════════════════ -->
+  <svg id="palco" viewBox="0 0 4000 1200" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="grad-ceu" gradientUnits="userSpaceOnUse" x1="0" y1="-260" x2="0" y2="700">
+        <stop id="ceu-topo" offset="0" stop-color="#050b1f"/>
+        <stop id="ceu-base" offset="1" stop-color="#0d2a4d"/>
+      </linearGradient>
+
+      <linearGradient id="grad-mar" gradientUnits="userSpaceOnUse" x1="0" y1="640" x2="0" y2="1400">
+        <stop id="mar-topo" offset="0" stop-color="#08182f"/>
+        <stop id="mar-base" offset="1" stop-color="#04101f"/>
+      </linearGradient>
+
+      <radialGradient id="grad-halo" cx="0.5" cy="0.5" r="0.5">
+        <stop offset="0"   id="halo-1" stop-color="#ffd9a0" stop-opacity=".85"/>
+        <stop offset="0.5" id="halo-2" stop-color="#ffd9a0" stop-opacity=".22"/>
+        <stop offset="1"   stop-color="#ffd9a0" stop-opacity="0"/>
+      </radialGradient>
+
+      <linearGradient id="grad-rastro" gradientUnits="objectBoundingBox" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" id="rastro-1" stop-color="#ffd9a0" stop-opacity=".55"/>
+        <stop offset="1" id="rastro-2" stop-color="#ffd9a0" stop-opacity="0"/>
+      </linearGradient>
+
+      <linearGradient id="grad-feixe" gradientUnits="objectBoundingBox" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#fff4c8" stop-opacity=".55"/>
+        <stop offset="1" stop-color="#fff4c8" stop-opacity="0"/>
+      </linearGradient>
+
+      <radialGradient id="grad-luz-lanterna" cx="0.5" cy="0.5" r="0.5">
+        <stop offset="0" stop-color="#ffc978" stop-opacity=".75"/>
+        <stop offset="1" stop-color="#ffc978" stop-opacity="0"/>
+      </radialGradient>
+
+      <radialGradient id="grad-onda-luz" cx="0.5" cy="0.5" r="0.5">
+        <stop offset="0"   stop-color="#ff8fa3" stop-opacity=".55"/>
+        <stop offset="0.6" stop-color="#ff8fa3" stop-opacity=".12"/>
+        <stop offset="1"   stop-color="#ff8fa3" stop-opacity="0"/>
+      </radialGradient>
+
+      <filter id="f-neblina" x="-30%" y="-60%" width="160%" height="220%">
+        <feGaussianBlur stdDeviation="34"/>
+      </filter>
+      <filter id="f-brilho" x="-60%" y="-60%" width="220%" height="220%">
+        <feGaussianBlur stdDeviation="7" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="f-suave" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="3"/>
+      </filter>
+
+      <!-- listras vermelhas do farol -->
+      <pattern id="pat-farol" width="1" height="76" patternUnits="userSpaceOnUse">
+        <rect width="60" height="38" y="0"  fill="#f7f3ea"/>
+        <rect width="60" height="38" y="38" fill="#e8544a"/>
+      </pattern>
+
+      <clipPath id="clip-rota">
+        <rect id="clip-rota-rect" x="-560" y="-330" width="0" height="660"/>
+      </clipPath>
+    </defs>
+
+    <!-- ══ camadas ══ -->
+    <g id="cam">
+
+      <!-- 1 · céu -->
+      <g id="camada-ceu" data-parallax="0" data-fixa="1">
+        <rect x="-4000" y="-3000" width="14000" height="3700" fill="url(#grad-ceu)"/>
+      </g>
+
+      <!-- 2 · estrelas (parallax leve — campo repetitivo) -->
+      <g id="camada-astros" data-parallax="0.15">
+        <g id="estrelas"></g>
+      </g>
+
+      <!-- 3 · nuvens -->
+      <g id="camada-nuvens" data-parallax="0.25">
+        <g id="nuvens"></g>
+      </g>
+
+      <!-- 3b · céu ancorado no mundo (astro segue a câmera por cálculo) -->
+      <g id="camada-ceu-mundo" data-parallax="1">
+        <g id="via-lactea" opacity="0">
+          <ellipse cx="3700" cy="300" rx="900" ry="120" fill="#dfe8ff" opacity=".10" filter="url(#f-neblina)"/>
+        </g>
+        <line id="cadente" x1="0" y1="0" x2="0" y2="0" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0"/>
+        <g id="astro" transform="translate(400 380)">
+          <circle id="astro-halo" r="190" fill="url(#grad-halo)"/>
+          <circle id="astro-disco" r="58" fill="#ffd9a0"/>
+          <circle id="astro-cratera-1" cx="-16" cy="-12" r="11" fill="#000" opacity="0"/>
+          <circle id="astro-cratera-2" cx="14" cy="16" r="8"  fill="#000" opacity="0"/>
+        </g>
+        <g id="constelacao" opacity="0"></g>
+        <g id="risadas"></g>
+      </g>
+
+      <!-- 4 · horizonte: terra, farol, porto, família (ancorado no mundo) -->
+      <g id="camada-horizonte" data-parallax="1">
+
+        <!-- ilha -->
+        <g id="ilha" opacity="0">
+          <path d="M540,652 Q700,548 860,652 Z" fill="#1d6b52"/>
+          <path d="M600,652 Q700,592 800,652 Z" fill="#2b8a68"/>
+          <g stroke="#7a5230" stroke-width="7" stroke-linecap="round" fill="none">
+            <path d="M672,620 q-6,-34 8,-52"/>
+            <path d="M712,624 q4,-30 -6,-46"/>
+          </g>
+          <g fill="#2f9e6d">
+            <ellipse cx="680" cy="566" rx="30" ry="9" transform="rotate(-22 680 566)"/>
+            <ellipse cx="680" cy="566" rx="30" ry="9" transform="rotate(22 680 566)"/>
+            <ellipse cx="706" cy="576" rx="26" ry="8" transform="rotate(-18 706 576)"/>
+            <ellipse cx="706" cy="576" rx="26" ry="8" transform="rotate(26 706 576)"/>
+          </g>
+        </g>
+
+        <!-- boia com sino -->
+        <g id="boia" opacity="0" transform="translate(1250 626)">
+          <path d="M-22,20 L22,20 L16,-6 L-16,-6 Z" fill="#e8544a"/>
+          <rect x="-18" y="-10" width="36" height="8" fill="#f7f3ea"/>
+          <path d="M-12,-10 L0,-44 L12,-10 Z" fill="none" stroke="#c9c2b4" stroke-width="4"/>
+          <circle id="boia-sino" cx="0" cy="-22" r="7" fill="#ffd166"/>
+          <circle id="boia-anel" cx="0" cy="24" r="8" fill="none" stroke="#ffffff" stroke-width="3" opacity="0"/>
+        </g>
+
+        <!-- farol -->
+        <g id="farol" opacity="0">
+          <ellipse cx="2500" cy="654" rx="130" ry="26" fill="#3a4a52"/>
+          <path d="M2460,652 L2472,392 L2528,392 L2540,652 Z" fill="url(#pat-farol)"/>
+          <rect x="2466" y="374" width="68" height="22" rx="6" fill="#33424a"/>
+          <rect x="2478" y="330" width="44" height="46" fill="#2b3940"/>
+          <circle id="farol-lampada" cx="2500" cy="352" r="15" fill="#fff4c8" filter="url(#f-brilho)"/>
+          <path d="M2478,330 L2500,300 L2522,330 Z" fill="#e8544a"/>
+          <g id="farol-feixe" opacity="0" transform="translate(2500 352)">
+            <path d="M0,0 L980,-150 L980,150 Z" fill="url(#grad-feixe)"/>
+          </g>
+          <rect x="2430" y="600" width="60" height="54" fill="#f7f3ea"/>
+          <path d="M2424,600 L2460,572 L2496,600 Z" fill="#e8544a"/>
+        </g>
+
+        <!-- molhe de pedras -->
+        <g id="molhe" opacity="0" fill="#4a5a62">
+          <path d="M3040,652 q40,-40 90,-30 q50,-24 96,14 q40,-6 54,16 Z"/>
+        </g>
+
+        <!-- porto: casinhas, cais, lanternas, família -->
+        <g id="porto" opacity="0">
+          <g id="casario">
+            <rect x="3430" y="536" width="86" height="80" fill="#f0e4d0"/>
+            <path d="M3424,536 L3473,494 L3522,536 Z" fill="#c0563f"/>
+            <rect x="3452" y="566" width="22" height="24" fill="#8fd0f0"/>
+            <rect x="3548" y="512" width="104" height="104" fill="#e8dcc6"/>
+            <path d="M3540,512 L3600,464 L3660,512 Z" fill="#a8452f"/>
+            <rect x="3572" y="546" width="26" height="28" fill="#8fd0f0"/>
+            <rect x="3614" y="546" width="26" height="28" fill="#8fd0f0"/>
+            <rect x="3690" y="546" width="80" height="70" fill="#f0e4d0"/>
+            <path d="M3684,546 L3730,508 L3776,546 Z" fill="#c0563f"/>
+            <rect x="3712" y="572" width="22" height="24" fill="#8fd0f0"/>
+          </g>
+          <!-- deck -->
+          <rect x="3400" y="612" width="580" height="20" fill="#a5764f"/>
+          <rect x="3400" y="608" width="580" height="6" fill="#c08e60"/>
+          <g fill="#7a5230">
+            <rect x="3428" y="630" width="16" height="120"/>
+            <rect x="3528" y="630" width="16" height="120"/>
+            <rect x="3628" y="630" width="16" height="120"/>
+            <rect x="3728" y="630" width="16" height="120"/>
+            <rect x="3828" y="630" width="16" height="120"/>
+            <rect x="3928" y="630" width="16" height="120"/>
+          </g>
+          <g id="lanternas"></g>
+          <g id="familia"></g>
+          <g id="coracoes"></g>
+        </g>
+      </g>
+
+      <!-- 5 · mar de fundo (ancorado: leva o rastro do astro e os reflexos) -->
+      <g id="camada-mar-fundo" data-parallax="1">
+        <rect x="-4000" y="648" width="14000" height="2400" fill="url(#grad-mar)"/>
+        <path id="rastro-astro" d="" fill="url(#grad-rastro)" opacity=".5"/>
+        <path id="onda-fundo" d="" fill="#ffffff" opacity=".10"/>
+        <g id="reflexos"></g>
+      </g>
+
+      <!-- 6 · navio -->
+      <g id="camada-navio" data-parallax="1">
+        <g id="navio-pos" transform="translate(300 650)">
+          <g id="navio-balanco">
+            <g id="navio" transform="scale(1)">
+              <path id="esteira" d="M-150,10 q-190,-16 -330,4 q184,26 330,10 Z" fill="#ffffff" opacity=".38"/>
+              <path d="M-158,-12 L158,-12 L128,52 Q0,84 -128,52 Z" fill="#123a5e"/>
+              <path d="M-158,-12 L158,-12 L154,4 L-154,4 Z" fill="#e8544a"/>
+              <path d="M-128,52 Q0,84 128,52 L120,64 Q0,94 -120,64 Z" fill="#0c2a45"/>
+              <g fill="#ffd166">
+                <circle cx="-108" cy="22" r="8"/><circle cx="-72" cy="24" r="8"/>
+                <circle cx="-36" cy="26" r="8"/><circle cx="0" cy="26" r="8"/>
+                <circle cx="36" cy="26" r="8"/><circle cx="72" cy="24" r="8"/>
+                <circle cx="108" cy="22" r="8"/>
+              </g>
+              <path id="coracao-proa" d="M126,-34 c6,-9 20,-8 22,2 c2,10 -12,18 -22,26 c-10,-8 -24,-16 -22,-26 c2,-10 16,-11 22,-2 Z" fill="#ff5d73"/>
+              <rect x="-78" y="-74" width="156" height="62" rx="8" fill="#f7f3ea"/>
+              <g fill="#8fd0f0">
+                <rect x="-64" y="-62" width="26" height="24" rx="4"/>
+                <rect x="-26" y="-62" width="26" height="24" rx="4"/>
+                <rect x="12"  y="-62" width="26" height="24" rx="4"/>
+                <rect x="50"  y="-62" width="22" height="24" rx="4"/>
+              </g>
+              <rect x="-44" y="-108" width="88" height="36" rx="7" fill="#ffffff"/>
+              <rect x="-32" y="-100" width="64" height="20" rx="4" fill="#5fb2e0"/>
+              <g id="chamine">
+                <rect x="14" y="-158" width="38" height="52" rx="5" fill="#e8544a"/>
+                <rect x="14" y="-158" width="38" height="13" rx="4" fill="#2b3940"/>
+              </g>
+              <rect x="-98" y="-186" width="7" height="116" rx="3" fill="#7a5230"/>
+              <path id="bandeira" d="M-91,-184 q26,10 52,0 q-26,22 -52,12 Z" fill="#ffd166"/>
+              <circle cx="-95" cy="-190" r="6" fill="#ffd166"/>
+              <g id="amarras" opacity="0" stroke="#e0cfa8" stroke-width="4" fill="none">
+                <path d="M150,-6 q90,26 150,10"/>
+                <path d="M150,14 q80,40 150,34"/>
+              </g>
+            </g>
+          </g>
+          <g id="fumaca"></g>
+          <g id="respingos"></g>
+        </g>
+      </g>
+
+      <!-- 7 · mar médio -->
+      <g id="camada-mar-medio" data-parallax="1.15">
+        <path id="onda-medio" d="" fill="#ffffff" opacity=".16"/>
+      </g>
+
+      <!-- 8 · mar da frente -->
+      <g id="camada-mar-frente" data-parallax="1.4">
+        <path id="onda-frente" d="" fill="#ffffff" opacity=".22"/>
+        <path id="onda-frente-2" d="" fill="#04121f" opacity=".30"/>
+      </g>
+
+      <!-- 9 · atmosfera -->
+      <g id="camada-atmosfera" data-parallax="1">
+        <g id="neblina" opacity="0" filter="url(#f-neblina)">
+          <ellipse class="banco nb1" cx="2200" cy="612" rx="620" ry="120" fill="#e8eef1"/>
+          <ellipse class="banco nb2" cx="2560" cy="668" rx="720" ry="150" fill="#dee7ea"/>
+          <ellipse class="banco nb3" cx="2380" cy="720" rx="820" ry="130" fill="#f2f6f7"/>
+        </g>
+        <g id="gaivotas"></g>
+        <circle id="onda-luz" cx="3720" cy="190" r="0" fill="url(#grad-onda-luz)" opacity="0"/>
+
+        <!-- inserto: bússola -->
+        <g id="bussola" opacity="0" transform="translate(2470 638)">
+          <rect x="-1100" y="-620" width="2200" height="1240" fill="#0b1520" opacity="0.93"/>
+          <circle r="118" fill="#1b2a38"/>
+          <circle r="104" fill="#f2e6cc"/>
+          <circle r="92" fill="none" stroke="#b99a63" stroke-width="4"/>
+          <g fill="#4a3a22" font-family="Baloo 2, sans-serif" font-size="24" text-anchor="middle">
+            <text y="-62">N</text><text y="78">S</text>
+            <text x="70" y="10">L</text><text x="-70" y="10">O</text>
+          </g>
+          <g stroke="#8a7550" stroke-width="2">
+            <line x1="0" y1="-88" x2="0" y2="-74"/><line x1="0" y1="74" x2="0" y2="88"/>
+            <line x1="-88" y1="0" x2="-74" y2="0"/><line x1="74" y1="0" x2="88" y2="0"/>
+          </g>
+          <g id="bussola-agulha">
+            <path d="M0,-72 L15,0 L0,16 L-15,0 Z" fill="#e8544a"/>
+            <path d="M0,72 L15,0 L0,-16 L-15,0 Z" fill="#f7f3ea"/>
+            <circle r="8" fill="#4a3a22"/>
+          </g>
+        </g>
+
+        <!-- mapa do bom cuidado -->
+        <g id="mapa" opacity="0" transform="translate(3735 780)">
+          <rect x="-560" y="-330" width="1120" height="660" rx="26" fill="#f4e6c6" opacity=".92"/>
+          <rect x="-560" y="-330" width="1120" height="660" rx="26" fill="none" stroke="#b08a4e" stroke-width="7"/>
+          <g stroke="#b08a4e" stroke-width="2" opacity=".45" fill="none">
+            <path d="M-520,-180 H520"/><path d="M-520,0 H520"/><path d="M-520,180 H520"/>
+            <path d="M-300,-300 V300"/><path d="M0,-300 V300"/><path d="M300,-300 V300"/>
+          </g>
+          <g id="rosa-ventos" transform="translate(-380 -170)">
+            <circle r="72" fill="none" stroke="#8a6a34" stroke-width="4"/>
+            <path d="M0,-70 L16,0 L0,70 L-16,0 Z" fill="#c0563f"/>
+            <path d="M-70,0 L0,-16 L70,0 L0,16 Z" fill="#8a6a34"/>
+          </g>
+          <path id="mapa-rota" d="M-250,150 C-120,60 -40,140 40,40 C110,-40 200,60 330,-60"
+                fill="none" stroke="#c0563f" stroke-width="7" stroke-linecap="round"
+                stroke-dasharray="14 16" clip-path="url(#clip-rota)"/>
+          <g id="mapa-marcos"></g>
+        </g>
+      </g>
+
+    </g><!-- #cam -->
+  </svg>
+
+  <!-- ══════════════════ CAMADAS DE TELA ══════════════════ -->
+  <div class="vinheta" id="vinheta" aria-hidden="true"></div>
+  <div class="letterbox topo" aria-hidden="true"></div>
+  <div class="letterbox base" aria-hidden="true"></div>
+  <div class="fade" id="fade" aria-hidden="true"></div>
+
+  <!-- legendas -->
+  <div class="legenda-zona" id="legenda-zona">
+    <p class="cena-narrador" id="cena-narrador" aria-hidden="true"></p>
+    <div class="legenda" id="legenda" aria-live="polite" aria-atomic="true"></div>
+  </div>
+
+  <!-- ── abertura ── -->
+  <section class="tela tela-abertura" id="tela-abertura">
+    <div class="abertura">
+      <p class="abertura-selo">Versão 8 · o filme</p>
+      <h1 class="abertura-titulo">O Capitão Coração</h1>
+      <p class="abertura-sub">Uma história animada, do mar aberto ao porto do amor</p>
+      <button class="botao-filme" id="btn-iniciar" autofocus>
+        <span aria-hidden="true">▶</span> Começar o filme
+      </button>
+      <p class="abertura-dica">≈ 5 minutos · use <kbd>Espaço</kbd>, <kbd>←</kbd> <kbd>→</kbd>, <kbd>F</kbd>, <kbd>M</kbd></p>
+      <a class="abertura-voltar" href="../index.html">⬅ Início</a>
+    </div>
+  </section>
+
+  <!-- ── final ── -->
+  <section class="tela tela-final" id="tela-final" hidden>
+    <div class="final">
+      <div class="final-emblema" aria-hidden="true">⚓</div>
+      <h2 class="final-titulo">Chegamos ao porto do amor</h2>
+      <p class="final-assinatura" id="final-assinatura"></p>
+      <div id="galeria-final"></div>
+      <div class="final-botoes">
+        <button class="botao-filme" id="btn-replay">🔁 Ver novamente</button>
+        <a class="botao-filme secundario" href="roteiro.md">🎬 Ler o roteiro</a>
+        <a class="botao-filme secundario" href="../index.html">🏠 Início</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── player ── -->
+  <div class="player" id="player" role="toolbar" aria-label="Controles do filme">
+    <button class="player-btn" id="btn-anterior" aria-label="Cena anterior" title="Cena anterior (←)">&#8249;</button>
+    <button class="player-btn destaque" id="btn-play" aria-label="Pausar" title="Pausar ou retomar (Espaço)">⏸</button>
+    <button class="player-btn" id="btn-proximo" aria-label="Próxima cena" title="Próxima cena (→)">&#8250;</button>
+    <div class="player-barra" id="player-barra" role="slider" tabindex="0"
+         aria-label="Progresso do filme" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="player-trilha"><div class="player-preenchido" id="player-preenchido"></div></div>
+      <div class="player-marcas" id="player-marcas" aria-hidden="true"></div>
+    </div>
+    <span class="player-tempo" id="player-tempo">0:00</span>
+    <button class="player-btn" id="btn-som" aria-label="Ligar o som" aria-pressed="false" title="Som (M)">🔇</button>
+    <button class="player-btn" id="btn-tela" aria-label="Tela cheia" title="Tela cheia (F)">⛶</button>
+    <a class="player-btn" href="../index.html" aria-label="Voltar ao início" title="Início">⌂</a>
+  </div>
+
+  <p class="cena-rotulo" id="cena-rotulo" aria-hidden="true"></p>
+  <div class="sr-only" aria-live="polite" id="sr-live"></div>
+</div>
+
+<script src="../assets/js/story.js"></script>
+<script src="../fotos/fotos.js"></script>
+<script src="../assets/js/familia.js"></script>
+<script src="roteiro.js"></script>
+<script src="cenario.js"></script>
+<script src="motor.js"></script>
+<script src="audio.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

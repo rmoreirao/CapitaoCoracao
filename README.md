@@ -13,7 +13,7 @@ servidor) e pode ser hospedado **de graça no GitHub Pages**.
 > `main`, pelo workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
 > Basta habilitar o Pages uma única vez (veja abaixo).
 
-A mesma história é apresentada em **sete versões** diferentes, para escolher a
+A mesma história é apresentada em **oito versões** diferentes, para escolher a
 que mais combina com o momento:
 
 | Versão | Pasta | O que é |
@@ -25,12 +25,13 @@ que mais combina com o momento:
 | 🗺️ **Mapa da Grande Viagem** | [`versao5/`](versao5/index.html) | Uma rota interativa por nove portos, com o barco navegando entre as memórias. |
 | 🌅 **Mar de Memórias** | [`versao6/`](versao6/index.html) | Uma narrativa vertical com navio, ondas, farol, estrelas e céu em movimento. |
 | 🎥 **Jornada Cinematográfica** | [`versao7/`](versao7/index.html) | Um filme automático: a história avança sozinha do amanhecer ao porto, com céu animado, navio em movimento e texto que aparece como legendas cinematográficas. |
+| 🎞️ **O Filme** | [`versao8/`](versao8/index.html) | A história **totalmente animada**: cenário desenhado em SVG, câmera que viaja do mar aberto até o porto e cada cena com sua própria coreografia. Roteiro em [`versao8/roteiro.md`](versao8/roteiro.md). |
 
-A página inicial [`index.html`](index.html) reúne as sete versões.
+A página inicial [`index.html`](index.html) reúne as oito versões.
 
 ## 📸 Fotos da família
 
-As sete versões terminam com uma **galeria automática** montada a partir do
+Todas as oito versões terminam com uma **galeria automática** montada a partir do
 conteúdo da pasta [`fotos/`](fotos/). Para atualizar as fotos do site, basta
 adicionar ou remover arquivos nessa pasta (nomeados como `pessoa-01.jpg`) e dar
 `push`: o workflow regera o manifesto `fotos/fotos.js` e republica o site.
@@ -68,7 +69,7 @@ python3 -m http.server 8000
 ## 🗂️ Estrutura
 
 ```
-index.html            # página inicial com as sete versões
+index.html            # página inicial com as oito versões
 assets/
   css/common.css      # estilos compartilhados (tema, galeria de fotos)
   js/story.js         # texto da história (compartilhado pelas 7 versões)
@@ -82,11 +83,13 @@ versao4/              # travessia cinematográfica
 versao5/              # mapa interativo da viagem
 versao6/              # mar de memórias em rolagem
 versao7/              # jornada cinematográfica (filme automático)
+versao8/              # o filme: história totalmente animada (+ roteiro.md)
 fotos/                # fotos da família (+ fotos.js/fotos.json gerados)
 ```
 
 > O texto da história fica em um único lugar (`assets/js/story.js`), então
-> qualquer ajuste no conteúdo aparece automaticamente nas sete versões.
+> qualquer ajuste no conteúdo aparece automaticamente nas versões 1 a 7.
+> A Versão 8 tem narração própria, ampliada, em `versao8/roteiro.js`.
 > A lista de fotos é gerada por `tools/gerar-fotos.mjs` — nunca edite
 > `fotos/fotos.js` ou `fotos/fotos.json` à mão.
 
@@ -120,5 +123,56 @@ amanhecer ao porto, sem que o visitante precise rolar ou clicar.
   voltar ao início.
 - Respeita `prefers-reduced-motion`: as animações contínuas são desativadas,
   mas a progressão automática é mantida.
+
+## 🎞️ Versão 8 — O Filme
+
+A Versão 8 é a história **totalmente animada**. Enquanto a Versão 7 monta o
+cenário com emojis em camadas, aqui existe **um mundo desenhado em SVG**
+(4000 × 1200) por onde a câmera viaja de ponta a ponta — do mar aberto ao porto
+— sem cortes bruscos. São **11 cenas**, cerca de 5 minutos.
+
+O roteiro completo, cena a cena, está em
+[`versao8/roteiro.md`](versao8/roteiro.md): narração, imagem, movimento de
+câmera, coreografia das animações e som.
+
+### O que muda em relação à Versão 7
+
+| | Versão 7 | Versão 8 |
+|---|---|---|
+| Cenário | emojis em camadas CSS | mar, navio, farol, cais e família desenhados em SVG |
+| Câmera | fixa | `viewBox` animado: panorâmica, zoom, inclinação e parallax |
+| Relógio | cadeia de `setTimeout` | relógio próprio em `requestAnimationFrame` (busca e pausa precisas) |
+| Texto | os 9 capítulos originais | narração ampliada, exclusiva desta versão |
+| Som | — | ambiente sintetizado no navegador (ondas, vento, motor, sino, batimento) |
+
+### Controles
+
+| Ação | Teclado | Botão |
+|------|---------|-------|
+| Iniciar | `Enter` / `Espaço` | **▶ Começar o filme** |
+| Pausar / retomar | `Espaço` | ⏸ / ▶ (ou clicar na cena) |
+| Cena anterior / próxima | `←` / `→` | `‹` / `›` |
+| Ligar o som | `M` | 🔇 / 🔊 |
+| Tela cheia | `F` | ⛶ |
+
+O som começa **desligado** (política de autoplay dos navegadores) e é gerado na
+hora com Web Audio — não há nenhum arquivo de áudio no repositório.
+
+### Arquivos
+
+```
+versao8/
+  roteiro.md   # o roteiro/storyboard (fonte da verdade da narrativa)
+  roteiro.js   # o mesmo roteiro em dados: cenas, beats, câmera, som
+  index.html   # o mundo SVG + a interface do player
+  motor.js     # relógio, timeline, câmera e interpolação de cores
+  cenario.js   # ondas, estrelas, nuvens, gaivotas, família, partículas
+  audio.js     # ambiente sonoro sintetizado
+  script.js    # orquestração e controles
+  style.css    # legendas cinematográficas, telas e player
+```
+
+> Para mudar o texto ou o ritmo do filme, edite `roteiro.md` e reflita a
+> alteração em `roteiro.js` — nenhuma animação precisa ser reescrita.
 
 Feito com muito carinho. 🌊⚓
