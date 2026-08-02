@@ -26,6 +26,12 @@ window.CAPITAO_FOTOS = [
     "height": 1108
   },
   {
+    "arquivo": "familia-01.jpeg",
+    "legenda": "Família",
+    "width": 1179,
+    "height": 885
+  },
+  {
     "arquivo": "felipe-01.jpg",
     "legenda": "Felipe",
     "width": 960,
@@ -108,5 +114,29 @@ window.CAPITAO_FOTOS = [
     "legenda": "Rodrigo",
     "width": 2448,
     "height": 3264
+  },
+  {
+    "arquivo": "rodrigo-08.jpeg",
+    "legenda": "Rodrigo",
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "arquivo": "rodrigo-09.jpeg",
+    "legenda": "Rodrigo",
+    "width": 1179,
+    "height": 1572
+  },
+  {
+    "arquivo": "rodrigo-10.jpeg",
+    "legenda": "Rodrigo",
+    "width": 1179,
+    "height": 1572
+  },
+  {
+    "arquivo": "rodrigo-11.jpeg",
+    "legenda": "Rodrigo",
+    "width": 1179,
+    "height": 1572
   }
 ];
