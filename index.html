@@ -3,147 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>O Capitão Coração 💙</title>
-  <meta name="description" content="Uma história lúdica e cheia de amor para o nosso Capitão Coração.">
+  <title>O Capitão Coração 💙 — O Filme</title>
+  <meta name="description" content="O Capitão Coração: uma história animada, do mar aberto ao porto do amor.">
+  <meta http-equiv="refresh" content="0; url=versao8/index.html">
+  <link rel="canonical" href="versao8/index.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/common.css">
   <style>
     body {
       min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
       background: linear-gradient(180deg, #bde9fb 0%, #7fd0f2 55%, #0a4d8c 100%);
       overflow-x: hidden;
     }
-    header.hero {
-      text-align: center;
-      padding: 3.5rem 1rem 1rem;
-      position: relative;
+    .abrindo { padding: 2rem 1.5rem; }
+    .navio {
+      font-size: clamp(3.5rem, 14vw, 7rem);
+      animation: flutua 3.5s ease-in-out infinite;
     }
-    .hero h1 {
-      font-size: clamp(2.4rem, 7vw, 4.5rem);
-      color: #fff;
-      margin: 0;
-      text-shadow: 0 4px 0 #0a4d8c, 0 8px 20px rgba(0,0,0,.25);
-    }
-    .hero p { color: #eaf7ff; font-size: 1.2rem; font-weight: 700; margin-top: .4rem; }
-    .navio-hero { font-size: clamp(3rem, 12vw, 7rem); animation: flutua 3.5s ease-in-out infinite; }
     @keyframes flutua {
-      0%,100% { transform: translateY(0) rotate(-2deg); }
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
       50% { transform: translateY(-16px) rotate(2deg); }
     }
-    .cartoes {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 22px;
-      max-width: 980px;
-      margin: 2rem auto 3rem;
-      padding: 0 20px;
-    }
-    .cartao {
-      background: #fff;
-      border-radius: 22px;
-      padding: 1.6rem;
-      text-align: center;
-      box-shadow: var(--sombra);
-      text-decoration: none;
-      color: var(--texto);
-      transition: transform .2s ease;
-      border: 4px solid transparent;
-    }
-    .cartao:hover { transform: translateY(-8px); border-color: var(--amarelo); }
-    .cartao.destaque { border-color: var(--coral); }
-    .cartao.destaque .selo { background: var(--azul-mar); }
-    .cartao .icone { font-size: 3.4rem; }
-    .cartao h2 { margin: .5rem 0 .3rem; color: var(--azul-mar); }
-    .cartao p { margin: 0; font-weight: 700; opacity: .85; }
-    .cartao .selo {
-      display: inline-block;
-      margin-top: .9rem;
-      background: var(--coral);
+    h1 {
+      font-size: clamp(2.2rem, 7vw, 4rem);
       color: #fff;
-      padding: .4rem 1.2rem;
-      border-radius: 999px;
-      font-family: var(--fonte-titulo);
+      margin: .4rem 0 0;
+      text-shadow: 0 4px 0 #0a4d8c, 0 8px 20px rgba(0, 0, 0, .25);
     }
-    .rodape { text-align: center; color: #eaf7ff; padding: 1rem 1rem 2.5rem; font-weight: 700; }
-    .ondas {
-      position: fixed; bottom: 0; left: 0; width: 100%; line-height: 0; z-index: -1;
+    p.sub { color: #eaf7ff; font-size: 1.15rem; font-weight: 700; margin: .5rem 0 1.8rem; }
+    a.botao {
+      display: inline-block;
+      background: var(--coral, #ff6b6b);
+      color: #fff;
+      font-family: var(--fonte-titulo, "Baloo 2", cursive);
+      font-size: 1.25rem;
+      padding: .9rem 2.2rem;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, .25);
+      transition: transform .2s ease;
+    }
+    a.botao:hover { transform: translateY(-3px) scale(1.04); }
+    p.aviso { color: #eaf7ff; font-weight: 700; margin-top: 1.4rem; opacity: .85; }
+    .ondas { position: fixed; bottom: 0; left: 0; width: 100%; line-height: 0; z-index: -1; }
+    @media (prefers-reduced-motion: reduce) {
+      .navio { animation: none; }
     }
   </style>
 </head>
 <body>
-  <header class="hero">
-    <div class="navio-hero">⛴️</div>
+  <main class="abrindo">
+    <div class="navio" aria-hidden="true">⛴️</div>
     <h1>O Capitão Coração</h1>
-    <p>Uma história cheia de amor — escolha como quer navegar por ela 🌊</p>
-  </header>
-
-  <main>
-    <section class="cartoes">
-      <a class="cartao" href="versao1/index.html">
-        <div class="icone">🌊</div>
-        <h2>Navegando</h2>
-        <p>Um site interativo: avance capítulo a capítulo com o navio e as ondas.</p>
-        <span class="selo">Versão 1</span>
-      </a>
-
-      <a class="cartao" href="versao2/index.html">
-        <div class="icone">📖</div>
-        <h2>Livro Ilustrado</h2>
-        <p>Um livrinho infantil para virar as páginas, uma de cada vez.</p>
-        <span class="selo">Versão 2</span>
-      </a>
-
-      <a class="cartao" href="versao3/index.html">
-        <div class="icone">❤️</div>
-        <h2>A Família Conta</h2>
-        <p>Cada pessoa da família narra um pedacinho da história.</p>
-        <span class="selo">Versão 3</span>
-      </a>
-
-      <a class="cartao" href="versao4/index.html">
-        <div class="icone">🎬</div>
-        <h2>Travessia Cinematográfica</h2>
-        <p>O navio cruza um cenário vivo enquanto cada capítulo entra em cena.</p>
-        <span class="selo">Versão 4</span>
-      </a>
-
-      <a class="cartao" href="versao5/index.html">
-        <div class="icone">🗺️</div>
-        <h2>Mapa da Grande Viagem</h2>
-        <p>Escolha os portos e acompanhe o barco por uma rota de memórias.</p>
-        <span class="selo">Versão 5</span>
-      </a>
-
-      <a class="cartao" href="versao6/index.html">
-        <div class="icone">🌅</div>
-        <h2>Mar de Memórias</h2>
-        <p>Role pela história com navio, ondas, farol e céu em movimento.</p>
-        <span class="selo">Versão 6</span>
-      </a>
-
-      <a class="cartao" href="versao7/index.html">
-        <div class="icone">🎥</div>
-        <h2>Jornada Cinematográfica</h2>
-        <p>Um filme automático: a história se desenrola sozinha, capítulo a capítulo, num cenário vivo do amanhecer ao porto.</p>
-        <span class="selo">Versão 7</span>
-      </a>
-
-      <a class="cartao destaque" href="versao8/index.html">
-        <div class="icone">🎞️</div>
-        <h2>O Filme</h2>
-        <p>A história totalmente animada: cenário desenhado, câmera que viaja do mar aberto até o porto e cada cena com sua própria coreografia.</p>
-        <span class="selo">Versão 8</span>
-      </a>
-    </section>
+    <p class="sub">Abrindo o filme… 🌊</p>
+    <a class="botao" href="versao8/index.html">▶ Começar o filme</a>
+    <p class="aviso">Se nada acontecer, toque no botão acima.</p>
   </main>
-
-  <p class="rodape">Feito com muito carinho para o nosso Capitão 💙</p>
 
   <div class="ondas" aria-hidden="true">
     <svg viewBox="0 0 1440 120" preserveAspectRatio="none" width="100%" height="120">
       <path fill="#0a4d8c" d="M0,64 C240,120 480,0 720,48 C960,96 1200,16 1440,64 L1440,120 L0,120 Z"></path>
     </svg>
   </div>
+
+  <script>
+    // location.replace evita que o botão "voltar" fique preso neste redirecionamento
+    location.replace('versao8/index.html');
+  </script>
 </body>
 </html>

@@ -13,36 +13,72 @@ servidor) e pode ser hospedado **de graça no GitHub Pages**.
 > `main`, pelo workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
 > Basta habilitar o Pages uma única vez (veja abaixo).
 
-A mesma história é apresentada em **oito versões** diferentes, para escolher a
-que mais combina com o momento:
+## 🎞️ A versão final: **O Filme**
 
-| Versão | Pasta | O que é |
-|--------|-------|---------|
-| 🌊 **Navegando** | [`versao1/`](versao1/index.html) | Site interativo: o navio flutua nas ondas e você avança capítulo a capítulo clicando em "Continuar navegando". |
-| 📖 **Livro Ilustrado** | [`versao2/`](versao2/index.html) | Um livrinho infantil: vire as páginas (com botões ou as setas do teclado), uma ilustração por página. |
-| ❤️ **A Família Conta** | [`versao3/`](versao3/index.html) | Cada membro da família narra um pedacinho da história, em balões de fala que aparecem conforme você rola a tela. |
-| 🎬 **Travessia Cinematográfica** | [`versao4/`](versao4/index.html) | O navio cruza ondas animadas e avança pelo cenário a cada novo capítulo. |
-| 🗺️ **Mapa da Grande Viagem** | [`versao5/`](versao5/index.html) | Uma rota interativa por nove portos, com o barco navegando entre as memórias. |
-| 🌅 **Mar de Memórias** | [`versao6/`](versao6/index.html) | Uma narrativa vertical com navio, ondas, farol, estrelas e céu em movimento. |
-| 🎥 **Jornada Cinematográfica** | [`versao7/`](versao7/index.html) | Um filme automático: a história avança sozinha do amanhecer ao porto, com céu animado, navio em movimento e texto que aparece como legendas cinematográficas. |
-| 🎞️ **O Filme** | [`versao8/`](versao8/index.html) | A história **totalmente animada**: cenário desenhado em SVG, câmera que viaja do mar aberto até o porto, trilha que muda a cada cena e as fotos da família passando uma a uma no final. Roteiro em [`versao8/roteiro.md`](versao8/roteiro.md). |
+Esta é a **versão final e definitiva** da história: a Versão 8, *O Filme*.
+Abrir o site leva **direto ao filme** — o [`index.html`](index.html) da raiz
+apenas redireciona para [`versao8/index.html`](versao8/index.html).
 
-A página inicial [`index.html`](index.html) reúne as oito versões.
+A Versão 8 é a história **totalmente animada**: existe **um mundo desenhado em
+SVG** (4000 × 1200) por onde a câmera viaja de ponta a ponta — do mar aberto ao
+porto — sem cortes bruscos. São **11 cenas** (~6 min), trilha sintetizada que
+muda de humor a cada cena e, no fim, as **fotos da família passando uma a uma**.
+
+O roteiro completo, cena a cena, está em
+[`versao8/roteiro.md`](versao8/roteiro.md): narração, imagem, movimento de
+câmera, coreografia das animações e som.
+
+### Controles
+
+| Ação | Teclado | Botão |
+|------|---------|-------|
+| Iniciar | `Enter` / `Espaço` | **▶ Começar o filme** |
+| Pausar / retomar | `Espaço` | ⏸ / ▶ (ou clicar na cena) |
+| Cena anterior / próxima | `←` / `→` | `‹` / `›` |
+| Ligar o som | `M` | 🔇 / 🔊 |
+| Tela cheia | `F` | ⛶ |
+| Recomeçar o filme | — | ⟲ |
+
+O som começa **desligado** (política de autoplay dos navegadores) e é gerado na
+hora com Web Audio — não há nenhum arquivo de áudio no repositório. O acorde de
+fundo acompanha a história: tenso na tempestade e na neblina, luminoso na
+chegada ao porto.
+
+### 🎥 Gravando em vídeo
+
+Abra **[`versao8/index.html?video=1`](versao8/index.html?video=1)**: o filme roda
+sem player, sem barra de progresso e sem rótulos — só a história. Basta apertar
+**▶ Começar o filme** (o clique libera o som) e gravar a tela.
+
+### Arquivos do filme
+
+```
+versao8/
+  roteiro.md   # o roteiro/storyboard (fonte da verdade da narrativa)
+  roteiro.js   # o mesmo roteiro em dados: cenas, beats, câmera, som
+  index.html   # o mundo SVG + a interface do player
+  motor.js     # relógio, timeline, câmera e interpolação de cores
+  cenario.js   # ondas, estrelas, nuvens, gaivotas, chuva, família, partículas
+  audio.js     # trilha e efeitos sintetizados
+  slideshow.js # as fotos da família, uma a uma
+  script.js    # orquestração e controles
+  style.css    # legendas cinematográficas, telas e player
+```
+
+> Para mudar o texto ou o ritmo do filme, edite `roteiro.md` e reflita a
+> alteração em `roteiro.js` — nenhuma animação precisa ser reescrita.
+> As fotos do final vêm da pasta `fotos/`: acrescentar uma foto lá já a coloca
+> no filme.
 
 ## 📸 Fotos da família
 
-As versões 1 a 7 terminam com uma **galeria automática** montada a partir do
-conteúdo da pasta [`fotos/`](fotos/). Para atualizar as fotos do site, basta
-adicionar ou remover arquivos nessa pasta (nomeados como `pessoa-01.jpg`) e dar
-`push`: o workflow regera o manifesto `fotos/fotos.js` e republica o site.
-Nenhuma edição de código é necessária — veja [`fotos/README.md`](fotos/README.md).
+No fim do filme as fotos da pasta [`fotos/`](fotos/) passam **uma a uma**, como
+um álbum em vídeo e sem legenda, e depois aparecem todas juntas em grade.
 
-A legenda de cada foto vem do prefixo do nome do arquivo (`mae-02.jpg` → *Mãe*)
-e as imagens são exibidas na proporção original, com carregamento preguiçoso
-(`loading="lazy"`).
-
-Na **Versão 8** as mesmas fotos passam **uma a uma**, como um álbum em vídeo, e
-sem legenda.
+Para atualizar as fotos do site, basta adicionar ou remover arquivos nessa pasta
+(nomeados como `pessoa-01.jpg`) e dar `push`: o workflow regera o manifesto
+`fotos/fotos.js` e republica o site. Nenhuma edição de código é necessária —
+veja [`fotos/README.md`](fotos/README.md).
 
 ## 🚀 Como publicar no GitHub Pages
 
@@ -72,123 +108,39 @@ python3 -m http.server 8000
 ## 🗂️ Estrutura
 
 ```
-index.html            # página inicial com as oito versões
+index.html            # redireciona para o filme (versao8/)
+versao8/              # O Filme — a versão final (+ roteiro.md)
+fotos/                # fotos da família (+ fotos.js/fotos.json gerados)
 assets/
   css/common.css      # estilos compartilhados (tema, galeria de fotos)
-  js/story.js         # texto da história (compartilhado pelas 7 versões)
-  js/familia.js       # renderiza a galeria de fotos
+  js/story.js         # texto original da história (usado pelas versões antigas)
+  js/familia.js       # galeria de fotos em grade (usada pelas versões antigas)
 tools/
   gerar-fotos.mjs     # gera fotos/fotos.js e fotos/fotos.json a partir de /fotos
-versao1/              # site interativo "Navegando"
-versao2/              # livro ilustrado
-versao3/              # a família conta a história
-versao4/              # travessia cinematográfica
-versao5/              # mapa interativo da viagem
-versao6/              # mar de memórias em rolagem
-versao7/              # jornada cinematográfica (filme automático)
-versao8/              # o filme: história totalmente animada (+ roteiro.md)
-fotos/                # fotos da família (+ fotos.js/fotos.json gerados)
+versao1/ … versao7/   # versões anteriores, mantidas como arquivo histórico
 ```
 
-> O texto da história fica em um único lugar (`assets/js/story.js`), então
-> qualquer ajuste no conteúdo aparece automaticamente nas versões 1 a 7.
-> A Versão 8 tem narração própria, ampliada, em `versao8/roteiro.js`.
 > A lista de fotos é gerada por `tools/gerar-fotos.mjs` — nunca edite
 > `fotos/fotos.js` ou `fotos/fotos.json` à mão.
 
-## 🎥 Versão 7 — Jornada Cinematográfica
+## 🗃️ Versões anteriores (arquivo)
 
-A Versão 7 é um **filme automático** que reproduz a história sozinha, do
-amanhecer ao porto, sem que o visitante precise rolar ou clicar.
+As sete versões que vieram antes continuam no repositório e podem ser abertas
+por URL direta, mas **não fazem mais parte do site oficial** — a versão que vale
+é *O Filme*.
 
-### Controles
+| Versão | Pasta | O que é |
+|--------|-------|---------|
+| 🌊 **Navegando** | [`versao1/`](versao1/index.html) | Site interativo: o navio flutua nas ondas e você avança capítulo a capítulo. |
+| 📖 **Livro Ilustrado** | [`versao2/`](versao2/index.html) | Um livrinho infantil: vire as páginas, uma ilustração por página. |
+| ❤️ **A Família Conta** | [`versao3/`](versao3/index.html) | Cada membro da família narra um pedacinho da história. |
+| 🎬 **Travessia Cinematográfica** | [`versao4/`](versao4/index.html) | O navio cruza ondas animadas e avança a cada novo capítulo. |
+| 🗺️ **Mapa da Grande Viagem** | [`versao5/`](versao5/index.html) | Uma rota interativa por nove portos de memórias. |
+| 🌅 **Mar de Memórias** | [`versao6/`](versao6/index.html) | Narrativa vertical com navio, ondas, farol, estrelas e céu em movimento. |
+| 🎥 **Jornada Cinematográfica** | [`versao7/`](versao7/index.html) | Um filme automático com cenário em emojis, do amanhecer ao porto. |
 
-| Ação | Teclado | Botão |
-|------|---------|-------|
-| Iniciar o filme | `Enter` / `Espaço` (na abertura) | **▶ Começar o filme** |
-| Pausar / retomar | `Espaço` | ⏸ / ▶ na barra inferior |
-| Capítulo anterior | `←` | `‹` na barra |
-| Próximo capítulo | `→` | `›` na barra |
-| Tela cheia | `F` | ⛶ na barra |
-| Voltar ao início | — | ⌂ na barra / `⬅ Início` na abertura |
-| Clicar na cena | — | pausa ou retoma |
-
-### Como funciona
-
-- Pressione **"Começar o filme"** uma vez (necessário para contornar restrições
-  do navegador).
-- A história avança automaticamente, parágrafo a parágrafo, com tempo
-  proporcional ao tamanho do texto (~320 ms por palavra).
-- O céu muda do amanhecer → manhã → meio-dia → neblina → tarde →
-  pôr-do-sol → crepúsculo → noite → chegada ao porto.
-- O navio desloca-se da esquerda para a direita conforme a história progride.
-- Ao final, aparece a galeria de fotos da família e botões para rever ou
-  voltar ao início.
-- Respeita `prefers-reduced-motion`: as animações contínuas são desativadas,
-  mas a progressão automática é mantida.
-
-## 🎞️ Versão 8 — O Filme
-
-A Versão 8 é a história **totalmente animada**. Enquanto a Versão 7 monta o
-cenário com emojis em camadas, aqui existe **um mundo desenhado em SVG**
-(4000 × 1200) por onde a câmera viaja de ponta a ponta — do mar aberto ao porto
-— sem cortes bruscos. São **11 cenas** (~6 min) e, no fim, as **fotos da
-família passando uma a uma**.
-
-O roteiro completo, cena a cena, está em
-[`versao8/roteiro.md`](versao8/roteiro.md): narração, imagem, movimento de
-câmera, coreografia das animações e som.
-
-### O que muda em relação à Versão 7
-
-| | Versão 7 | Versão 8 |
-|---|---|---|
-| Cenário | emojis em camadas CSS | mar, navio, farol, cais e família desenhados em SVG |
-| Câmera | fixa | `viewBox` animado: panorâmica, zoom, inclinação e parallax |
-| Relógio | cadeia de `setTimeout` | relógio próprio em `requestAnimationFrame` (busca e pausa precisas) |
-| Texto | os 9 capítulos originais | narração ampliada, exclusiva desta versão |
-| Som | — | trilha sintetizada que **muda de humor a cada cena**, com trovão, chuva, pássaros e sinos |
-| Fotos | galeria em grade | passam **uma a uma**, sem legenda, e só no fim aparecem todas juntas |
-
-### Controles
-
-| Ação | Teclado | Botão |
-|------|---------|-------|
-| Iniciar | `Enter` / `Espaço` | **▶ Começar o filme** |
-| Pausar / retomar | `Espaço` | ⏸ / ▶ (ou clicar na cena) |
-| Cena anterior / próxima | `←` / `→` | `‹` / `›` |
-| Ligar o som | `M` | 🔇 / 🔊 |
-| Tela cheia | `F` | ⛶ |
-
-O som começa **desligado** (política de autoplay dos navegadores) e é gerado na
-hora com Web Audio — não há nenhum arquivo de áudio no repositório. O acorde de
-fundo acompanha a história: tenso na tempestade e na neblina, luminoso na
-chegada ao porto.
-
-### 🎥 Gravando em vídeo
-
-Abra **[`versao8/index.html?video=1`](versao8/index.html?video=1)**: o filme roda
-sem player, sem barra de progresso e sem rótulos — só a história. Basta apertar
-**▶ Começar o filme** (o clique libera o som) e gravar a tela.
-
-### Arquivos
-
-```
-versao8/
-  roteiro.md   # o roteiro/storyboard (fonte da verdade da narrativa)
-  roteiro.js   # o mesmo roteiro em dados: cenas, beats, câmera, som
-  index.html   # o mundo SVG + a interface do player
-  motor.js     # relógio, timeline, câmera e interpolação de cores
-  cenario.js   # ondas, estrelas, nuvens, gaivotas, chuva, família, partículas
-  audio.js     # trilha e efeitos sintetizados
-  slideshow.js # as fotos da família, uma a uma
-  script.js    # orquestração e controles
-  style.css    # legendas cinematográficas, telas e player
-```
-
-> Para mudar o texto ou o ritmo do filme, edite `roteiro.md` e reflita a
-> alteração em `roteiro.js` — nenhuma animação precisa ser reescrita.
-> As fotos do final vêm da pasta `fotos/`: acrescentar uma foto lá já a coloca
-> no filme.
+Essas versões usam o texto compartilhado de `assets/js/story.js` e a galeria em
+grade de `assets/js/familia.js`. A Versão 8 tem narração própria, ampliada, em
+`versao8/roteiro.js`.
 
 Feito com muito carinho. 🌊⚓
