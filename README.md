@@ -2,193 +2,117 @@
 
 Uma homenagem lúdica, divertida e cheia de amor para o nosso **Capitão Coração**.
 
-O projeto é um **site estático** (apenas HTML, CSS e JavaScript — sem build, sem
-servidor) e pode ser hospedado **de graça no GitHub Pages**.
+O projeto é um **site estático** (HTML, CSS e JavaScript, sem build) publicado no
+GitHub Pages. A entrada principal do site agora redireciona direto para a
+**Versão 8 — O Filme**, que passa a ser a versão oficial.
 
 ## 🌐 Site no ar
 
 👉 **https://rmoreirao.github.io/CapitaoCoracao/**
 
-> O site é publicado automaticamente no GitHub Pages a cada `push` na branch
-> `main`, pelo workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
-> Basta habilitar o Pages uma única vez (veja abaixo).
-
-A mesma história é apresentada em **oito versões** diferentes, para escolher a
-que mais combina com o momento:
-
-| Versão | Pasta | O que é |
-|--------|-------|---------|
-| 🌊 **Navegando** | [`versao1/`](versao1/index.html) | Site interativo: o navio flutua nas ondas e você avança capítulo a capítulo clicando em "Continuar navegando". |
-| 📖 **Livro Ilustrado** | [`versao2/`](versao2/index.html) | Um livrinho infantil: vire as páginas (com botões ou as setas do teclado), uma ilustração por página. |
-| ❤️ **A Família Conta** | [`versao3/`](versao3/index.html) | Cada membro da família narra um pedacinho da história, em balões de fala que aparecem conforme você rola a tela. |
-| 🎬 **Travessia Cinematográfica** | [`versao4/`](versao4/index.html) | O navio cruza ondas animadas e avança pelo cenário a cada novo capítulo. |
-| 🗺️ **Mapa da Grande Viagem** | [`versao5/`](versao5/index.html) | Uma rota interativa por nove portos, com o barco navegando entre as memórias. |
-| 🌅 **Mar de Memórias** | [`versao6/`](versao6/index.html) | Uma narrativa vertical com navio, ondas, farol, estrelas e céu em movimento. |
-| 🎥 **Jornada Cinematográfica** | [`versao7/`](versao7/index.html) | Um filme automático: a história avança sozinha do amanhecer ao porto, com céu animado, navio em movimento e texto que aparece como legendas cinematográficas. |
-| 🎞️ **O Filme** | [`versao8/`](versao8/index.html) | A história **totalmente animada**: cenário desenhado em SVG, câmera que viaja do mar aberto até o porto, trilha que muda a cada cena e as fotos da família passando uma a uma no final. Roteiro em [`versao8/roteiro.md`](versao8/roteiro.md). |
-
-A página inicial [`index.html`](index.html) reúne as oito versões.
-
-## 📸 Fotos da família
-
-As versões 1 a 7 terminam com uma **galeria automática** montada a partir do
-conteúdo da pasta [`fotos/`](fotos/). Para atualizar as fotos do site, basta
-adicionar ou remover arquivos nessa pasta (nomeados como `pessoa-01.jpg`) e dar
-`push`: o workflow regera o manifesto `fotos/fotos.js` e republica o site.
-Nenhuma edição de código é necessária — veja [`fotos/README.md`](fotos/README.md).
-
-A legenda de cada foto vem do prefixo do nome do arquivo (`mae-02.jpg` → *Mãe*)
-e as imagens são exibidas na proporção original, com carregamento preguiçoso
-(`loading="lazy"`).
-
-Na **Versão 8** as mesmas fotos passam **uma a uma**, como um álbum em vídeo, e
-sem legenda.
-
-## 🚀 Como publicar no GitHub Pages
-
-A publicação é **automática** via GitHub Actions. Só é preciso habilitar o Pages
-uma vez:
-
-1. Faça o merge deste conteúdo na branch principal (`main`).
-2. No repositório, vá em **Settings → Pages**.
-3. Em **Source**, escolha **GitHub Actions**.
-4. Pronto: a cada `push` na `main`, o workflow
-   [`deploy.yml`](.github/workflows/deploy.yml) publica o site em
-   **https://rmoreirao.github.io/CapitaoCoracao/**.
-
-> Alternativa manual: em **Settings → Pages → Source**, escolha
-> **Deploy from a branch**, branch `main` e pasta `/ (root)`.
-
-## 🖥️ Como testar localmente
-
-Como é tudo estático, basta abrir o `index.html` no navegador. Para as fotos e
-os scripts carregarem sem restrições, o ideal é usar um servidor simples:
-
-```bash
-python3 -m http.server 8000
-# depois abra http://localhost:8000
-```
-
-## 🗂️ Estrutura
-
-```
-index.html            # página inicial com as oito versões
-assets/
-  css/common.css      # estilos compartilhados (tema, galeria de fotos)
-  js/story.js         # texto da história (compartilhado pelas 7 versões)
-  js/familia.js       # renderiza a galeria de fotos
-tools/
-  gerar-fotos.mjs     # gera fotos/fotos.js e fotos/fotos.json a partir de /fotos
-versao1/              # site interativo "Navegando"
-versao2/              # livro ilustrado
-versao3/              # a família conta a história
-versao4/              # travessia cinematográfica
-versao5/              # mapa interativo da viagem
-versao6/              # mar de memórias em rolagem
-versao7/              # jornada cinematográfica (filme automático)
-versao8/              # o filme: história totalmente animada (+ roteiro.md)
-fotos/                # fotos da família (+ fotos.js/fotos.json gerados)
-```
-
-> O texto da história fica em um único lugar (`assets/js/story.js`), então
-> qualquer ajuste no conteúdo aparece automaticamente nas versões 1 a 7.
-> A Versão 8 tem narração própria, ampliada, em `versao8/roteiro.js`.
-> A lista de fotos é gerada por `tools/gerar-fotos.mjs` — nunca edite
-> `fotos/fotos.js` ou `fotos/fotos.json` à mão.
-
-## 🎥 Versão 7 — Jornada Cinematográfica
-
-A Versão 7 é um **filme automático** que reproduz a história sozinha, do
-amanhecer ao porto, sem que o visitante precise rolar ou clicar.
-
-### Controles
-
-| Ação | Teclado | Botão |
-|------|---------|-------|
-| Iniciar o filme | `Enter` / `Espaço` (na abertura) | **▶ Começar o filme** |
-| Pausar / retomar | `Espaço` | ⏸ / ▶ na barra inferior |
-| Capítulo anterior | `←` | `‹` na barra |
-| Próximo capítulo | `→` | `›` na barra |
-| Tela cheia | `F` | ⛶ na barra |
-| Voltar ao início | — | ⌂ na barra / `⬅ Início` na abertura |
-| Clicar na cena | — | pausa ou retoma |
-
-### Como funciona
-
-- Pressione **"Começar o filme"** uma vez (necessário para contornar restrições
-  do navegador).
-- A história avança automaticamente, parágrafo a parágrafo, com tempo
-  proporcional ao tamanho do texto (~320 ms por palavra).
-- O céu muda do amanhecer → manhã → meio-dia → neblina → tarde →
-  pôr-do-sol → crepúsculo → noite → chegada ao porto.
-- O navio desloca-se da esquerda para a direita conforme a história progride.
-- Ao final, aparece a galeria de fotos da família e botões para rever ou
-  voltar ao início.
-- Respeita `prefers-reduced-motion`: as animações contínuas são desativadas,
-  mas a progressão automática é mantida.
+Ao abrir a raiz do site, o visitante é enviado para
+[`versao8/index.html`](versao8/index.html).
 
 ## 🎞️ Versão 8 — O Filme
 
-A Versão 8 é a história **totalmente animada**. Enquanto a Versão 7 monta o
-cenário com emojis em camadas, aqui existe **um mundo desenhado em SVG**
-(4000 × 1200) por onde a câmera viaja de ponta a ponta — do mar aberto ao porto
-— sem cortes bruscos. São **11 cenas** (~6 min) e, no fim, as **fotos da
-família passando uma a uma**.
+A versão oficial é um **filme animado**: cenário desenhado em SVG, câmera em
+movimento, narração ampliada, trilha sintetizada e, no final, as fotos da
+família passando uma a uma.
 
 O roteiro completo, cena a cena, está em
-[`versao8/roteiro.md`](versao8/roteiro.md): narração, imagem, movimento de
-câmera, coreografia das animações e som.
-
-### O que muda em relação à Versão 7
-
-| | Versão 7 | Versão 8 |
-|---|---|---|
-| Cenário | emojis em camadas CSS | mar, navio, farol, cais e família desenhados em SVG |
-| Câmera | fixa | `viewBox` animado: panorâmica, zoom, inclinação e parallax |
-| Relógio | cadeia de `setTimeout` | relógio próprio em `requestAnimationFrame` (busca e pausa precisas) |
-| Texto | os 9 capítulos originais | narração ampliada, exclusiva desta versão |
-| Som | — | trilha sintetizada que **muda de humor a cada cena**, com trovão, chuva, pássaros e sinos |
-| Fotos | galeria em grade | passam **uma a uma**, sem legenda, e só no fim aparecem todas juntas |
+[`versao8/roteiro.md`](versao8/roteiro.md). Ele é a fonte da verdade da
+narrativa; [`versao8/roteiro.js`](versao8/roteiro.js) espelha esse conteúdo em
+dados para o motor do filme.
 
 ### Controles
 
 | Ação | Teclado | Botão |
 |------|---------|-------|
 | Iniciar | `Enter` / `Espaço` | **▶ Começar o filme** |
-| Pausar / retomar | `Espaço` | ⏸ / ▶ (ou clicar na cena) |
+| Pausar / retomar | `Espaço` | ⏸ / ▶ |
 | Cena anterior / próxima | `←` / `→` | `‹` / `›` |
 | Ligar o som | `M` | 🔇 / 🔊 |
 | Tela cheia | `F` | ⛶ |
+| Recomeçar o filme | — | ↺ |
 
-O som começa **desligado** (política de autoplay dos navegadores) e é gerado na
-hora com Web Audio — não há nenhum arquivo de áudio no repositório. O acorde de
-fundo acompanha a história: tenso na tempestade e na neblina, luminoso na
-chegada ao porto.
+O som começa **desligado** por causa das políticas de autoplay dos navegadores e
+é gerado na hora com Web Audio — não há arquivos de áudio no repositório.
 
 ### 🎥 Gravando em vídeo
 
-Abra **[`versao8/index.html?video=1`](versao8/index.html?video=1)**: o filme roda
-sem player, sem barra de progresso e sem rótulos — só a história. Basta apertar
-**▶ Começar o filme** (o clique libera o som) e gravar a tela.
+Abra **[`versao8/index.html?video=1`](versao8/index.html?video=1)**: o filme
+roda sem player, sem barra de progresso e sem rótulos. Basta clicar em
+**▶ Começar o filme** e gravar a tela.
 
-### Arquivos
+### 📸 Fotos da família
 
-```
+As fotos da Versão 8 vêm da pasta [`fotos/`](fotos/). No final do filme elas
+passam **uma a uma**; depois aparecem em grade.
+
+Para atualizar a galeria, basta adicionar ou remover arquivos com nomes como
+`pessoa-01.jpg` e dar `push`: o workflow regenera `fotos/fotos.js` e
+`fotos/fotos.json` automaticamente. Veja [`fotos/README.md`](fotos/README.md).
+
+### 🗂️ Arquivos
+
+```text
+index.html            # redireciona a raiz para a versão oficial
 versao8/
-  roteiro.md   # o roteiro/storyboard (fonte da verdade da narrativa)
-  roteiro.js   # o mesmo roteiro em dados: cenas, beats, câmera, som
-  index.html   # o mundo SVG + a interface do player
-  motor.js     # relógio, timeline, câmera e interpolação de cores
-  cenario.js   # ondas, estrelas, nuvens, gaivotas, chuva, família, partículas
-  audio.js     # trilha e efeitos sintetizados
-  slideshow.js # as fotos da família, uma a uma
-  script.js    # orquestração e controles
-  style.css    # legendas cinematográficas, telas e player
+  index.html          # o player do filme
+  roteiro.md          # roteiro/storyboard (fonte da verdade da narrativa)
+  roteiro.js          # roteiro em dados
+  motor.js            # relógio, timeline, câmera e interpolações
+  cenario.js          # cenário, ondas, clima, família e partículas
+  audio.js            # trilha e efeitos sintetizados
+  slideshow.js        # fotos finais, uma a uma
+  style.css           # interface, legendas e telas
+fotos/                # fotos da família (+ manifestos gerados)
+tools/gerar-fotos.mjs # gera fotos/fotos.js e fotos/fotos.json
 ```
 
-> Para mudar o texto ou o ritmo do filme, edite `roteiro.md` e reflita a
-> alteração em `roteiro.js` — nenhuma animação precisa ser reescrita.
-> As fotos do final vêm da pasta `fotos/`: acrescentar uma foto lá já a coloca
-> no filme.
+## 🗃️ Arquivo histórico
 
-Feito com muito carinho. 🌊⚓
+As versões anteriores continuam no repositório e seguem acessíveis por URL
+direta, mas agora ficam apenas como arquivo histórico:
+
+- [Versão 1 — Navegando](versao1/index.html)
+- [Versão 2 — Livro Ilustrado](versao2/index.html)
+- [Versão 3 — A Família Conta](versao3/index.html)
+- [Versão 4 — Travessia Cinematográfica](versao4/index.html)
+- [Versão 5 — Mapa da Grande Viagem](versao5/index.html)
+- [Versão 6 — Mar de Memórias](versao6/index.html)
+- [Versão 7 — Jornada Cinematográfica](versao7/index.html)
+
+O texto compartilhado dessas versões continua em
+[`assets/js/story.js`](assets/js/story.js), e a galeria antiga segue em
+[`assets/js/familia.js`](assets/js/familia.js).
+
+## 🚀 Como publicar no GitHub Pages
+
+A publicação é automática via GitHub Actions:
+
+1. Faça o merge na branch principal (`main`).
+2. No repositório, vá em **Settings → Pages**.
+3. Em **Source**, escolha **GitHub Actions**.
+4. A cada `push` na `main`, o workflow
+   [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) publica o site
+   em **https://rmoreirao.github.io/CapitaoCoracao/**.
+
+> Alternativa manual: em **Settings → Pages → Source**, escolha
+> **Deploy from a branch**, branch `main` e pasta `/ (root)`.
+
+## 🖥️ Como testar localmente
+
+Como é tudo estático, o jeito mais seguro de testar é servir a raiz do
+repositório com um servidor simples:
+
+```bash
+python3 -m http.server 8000
+# depois abra http://localhost:8000
+```
+
+## Feito com carinho
+
+Nada foi apagado: da `versao1/` à `versao7/`, além de
+`assets/js/story.js` e `assets/js/familia.js`, tudo continua publicado junto com
+o restante do site.
